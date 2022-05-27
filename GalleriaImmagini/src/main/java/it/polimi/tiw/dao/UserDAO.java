@@ -16,8 +16,8 @@ public class UserDAO {
 	}
 	
 	public int createUser(String username, String email, String password) throws SQLException{
-		// We need to create the database first, these names might change
-		String query = "INSERT into User (username, email, password) values (?, ?, ?)";
+		
+		String query = "INSERT into user (username, email, password) values (?, ?, ?)";
 		int code = 0;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -46,7 +46,7 @@ public class UserDAO {
 	public User getUserFromUsername(String username) throws SQLException {
 		// We need to create the database first, these names might change
 
-		String query = "SELECT username, email, password FROM User WHERE username = ?";
+		String query = "SELECT username, email, password FROM user WHERE username = ?";
 		ResultSet resultSet = null; 
 		User resultUser = null;
 		PreparedStatement preparedStatement = null;
