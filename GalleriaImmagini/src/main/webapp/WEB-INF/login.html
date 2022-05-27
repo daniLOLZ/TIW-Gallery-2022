@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xlmns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login/signup</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/mystyle.css" th:href="@{/css/mystyle.css}" />
+</head>
+<body>
+<h1>Welcome to the message application</h1>
+<h2>Select a topic to see its messages</h2>
+<table border="1">
+<thead>
+<tr><th>Topic Name</th></tr>
+</thead>
+<tbody th:remove="all-but-first">
+<tr th:each="topic : ${topics}" th:class="${topicStat.even}? 'even'">
+<td th:text="${topic.name}">Onions</td>
+</tr>
+<tr class="even"><td>Blue Lettuce</td></tr>
+<tr><td>Mild Cinnamon</td></tr>
+<tr class="even"><td>Apples</td></tr>
+<tr><td>Oranges</td></tr>
+</tbody>
+
+</body>
+</html>
