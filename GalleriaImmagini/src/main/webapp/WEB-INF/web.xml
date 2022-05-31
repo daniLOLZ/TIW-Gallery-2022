@@ -3,6 +3,33 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 version="4.0">
+	<display-name>GalleriaImmagini</display-name>
+	<welcome-file-list>
+    	<welcome-file>login_page.html</welcome-file>
+  	</welcome-file-list>
+	<!-- If i need context-wide parameters, they go here -->
+	<context-param>
+		<param-name>dbUrl</param-name>
+		<param-value>jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC</param-value>	
+	</context-param>
+	<context-param>
+		<param-name>dbUser</param-name>
+		<param-value>root</param-value>	
+	</context-param>
+	<context-param>
+		<param-name>dbPasswordGreg</param-name>
+		<param-value>C0ntinu@zione</param-value>	
+	</context-param>
+	<context-param>
+		<param-name>dbPasswordDani</param-name>
+		<param-value>$nnH68bmJ4X4r*EXMR</param-value>	
+	</context-param>
+	<context-param>
+		<param-name>dbDriver</param-name>
+		<param-value>com.mysql.cj.jdbc.Driver</param-value>	
+	</context-param>
+	 
+	 <!--
 	<servlet>
 		<servlet-name>ConnectionTester</servlet-name>
 		<servlet-class>it.polimi.tiw.test.ConnectionTester</servlet-class>
@@ -11,4 +38,80 @@ version="4.0">
 		<servlet-name>ConnectionTester</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	-->
+	<servlet>
+		<servlet-name>SignupCheck</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.SignupCheck</servlet-class>
+		<!-- 
+		<init-param>
+			<param-name> Parameter specific to this servlet </param-name>
+			<param-value> value </param-value>
+		</init-param>
+		 -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SignupCheck</servlet-name>
+		<url-pattern>/SignupCheck</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginCheck</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.LoginCheck</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginCheck</servlet-name>
+		<url-pattern>/LoginCheck</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GoToLoginPage</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.GoToLoginPage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoToLoginPage</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>	
+		
+	<servlet>
+		<servlet-name>GoToHomePage</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.GoToHomePage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoToHomePage</servlet-name>
+		<url-pattern>/HomePage</url-pattern>
+	</servlet-mapping>	
+
+	<servlet>
+		<servlet-name>GoToAlbumPage</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.GoToAlbumPage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoToAlbumPage</servlet-name>
+		<url-pattern>/Album</url-pattern>
+	</servlet-mapping>	
+
+	<servlet>
+		<servlet-name>GoToAlbumEditPage</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.GoToAlbumEditPage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoToAlbumEDitPage</servlet-name>
+		<url-pattern>/AlbumEdit</url-pattern>
+	</servlet-mapping>
+
+	<!-- Aggiungi gli altri mapping -->
+
+	<!-- We can add filters to pre/post process requests/responses -->
+	<!-- The order infers the order in which they will be called in a chain-->
+	<!--
+	<filter> 
+		<filter-name>filterName</filter-name> 
+		<filter-class></filter-class> 
+	</filter> 
+	<filter-mapping> 
+		<filter-name>filterNameeeee</filter-name> 
+		<url-pattern>/…</url-pattern> 
+	</filter-mapping>
+	-->
+	
 </web-app>

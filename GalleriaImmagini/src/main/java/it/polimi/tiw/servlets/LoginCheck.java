@@ -1,0 +1,95 @@
+package it.polimi.tiw.servlets;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.UnavailableException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import it.polimi.tiw.dao.UserDAO;
+
+//@WebServlet("/LoginCheck")
+public class LoginCheck extends HttpServlet {
+
+    Connection connection;
+
+    @Override
+    public void init() throws ServletException {
+        final String DB_URL = getServletContext().getInitParameter("dbUrl");
+		final String USER = getServletContext().getInitParameter("dbUser");
+//		final String PASS = getServletContext().getInitParameter("dbPasswordGreg");
+		final String PASS = getServletContext().getInitParameter("dbPasswordDani");
+		final String DRIVER_STRING = getServletContext().getInitParameter("dbDriver");
+		
+	
+		try {
+			Class.forName(DRIVER_STRING);
+			connection = DriverManager.getConnection(DB_URL, USER, PASS);
+		}
+		catch (ClassNotFoundException e){
+			throw new UnavailableException("Can't load db driver");
+		}
+		catch (SQLException e) {
+			throw new UnavailableException("Can't connect to database");
+		}
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        UserDAO userDAO = new UserDAO(connection);
+
+        if(username == null || password == null ){
+			response.sendRedirect("/"); //Send with error status = 1 (null inputs)
+            return;
+		}
+
+        try {
+			if(userDAO.checkCredentials(username, password) == null) {
+				// User is present
+				response.sendRedirect("/"); //Send with error status = 2 (incorrect credentials)
+				return;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        // Add session creation here
+		HttpSession session = request.getSession(true);
+		//It should always be new, since the session is just now starting after sign in
+		if(session.isNew()){
+			request.getSession().setAttribute("username", username);
+		}
+
+        response.sendRedirect("/GoToHomePage");
+    }
+
+    @Override
+    public void destroy() {
+        try {
+			if(connection != null){
+				connection.close();
+			}
+		} catch (SQLException e) {
+			
+		}
+    }
+
+
+}

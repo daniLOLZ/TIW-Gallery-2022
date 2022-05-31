@@ -49,6 +49,7 @@ public class AlbumDAO {
 			throw new SQLException(e);
 		}
 		finally {
+			// The order of closing is, for better safety, result -> statement -> connection
 			try {
 				if (resultSet != null) {
 					resultSet.close();
