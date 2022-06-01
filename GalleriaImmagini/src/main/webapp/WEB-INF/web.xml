@@ -64,12 +64,30 @@ version="4.0">
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>CreateEditAlbum</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.CreateEditAlbum</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateEditAlbum</servlet-name>
+		<url-pattern>/CreateEditAlbum</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CreateComment</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.CreateComment</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateComment</servlet-name>
+		<url-pattern>/CreateComment</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>GoToLoginPage</servlet-name>
 		<servlet-class>it.polimi.tiw.servlets.GoToLoginPage</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GoToLoginPage</servlet-name>
-		<url-pattern>/Login</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>	
 		
 	<servlet>
@@ -78,7 +96,7 @@ version="4.0">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GoToHomePage</servlet-name>
-		<url-pattern>/HomePage</url-pattern>
+		<url-pattern>/Home</url-pattern>
 	</servlet-mapping>	
 
 	<servlet>
@@ -103,15 +121,19 @@ version="4.0">
 
 	<!-- We can add filters to pre/post process requests/responses -->
 	<!-- The order infers the order in which they will be called in a chain-->
-	<!--
+	
 	<filter> 
-		<filter-name>filterName</filter-name> 
-		<filter-class></filter-class> 
+		<filter-name>LoggedFilter</filter-name> 
+		<filter-class>it.polimi.tiw.filters.LoggedFilter</filter-class> 
 	</filter> 
 	<filter-mapping> 
-		<filter-name>filterNameeeee</filter-name> 
-		<url-pattern>/…</url-pattern> 
+		<filter-name>LoggedFilter</filter-name> 
+		<url-pattern>/GoToHomePage</url-pattern> 
+		<url-pattern>/GoToAlbumPage</url-pattern> 
+		<url-pattern>/GoToAlbumEditPage</url-pattern> 
+		<url-pattern>/Logout</url-pattern>
+		<url-pattern>/CreateComment</url-pattern>  
+		<url-pattern>/CreateEditAlbum</url-pattern> 
 	</filter-mapping>
-	-->
-	
+		
 </web-app>

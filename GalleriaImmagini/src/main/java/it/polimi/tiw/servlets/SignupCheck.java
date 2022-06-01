@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.cj.xdevapi.Schema.CreateCollectionOptions;
-
 import it.polimi.tiw.dao.UserDAO;
 
 //@WebServlet("/SignupCheck")
@@ -67,8 +65,10 @@ public class SignupCheck extends HttpServlet {
 		String repeatPassword = request.getParameter("repeatPassword");
 		UserDAO userDAO = new UserDAO(connection);
 		
-		if(username == null || email == null || password == null || repeatPassword == null  ){
-			response.sendRedirect("/"); //Send with error status = 1 (null inputs)
+		if(username == null || email == null || password == null || repeatPassword == null || 
+		   username.isEmpty()|| email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || 
+		   username.isBlank()|| email.isBlank() || password.isBlank() || repeatPassword.isBlank()){
+			response.sendRedirect("/?errorId=1"); //Send with error status = 1 (null/invalid inputs (sign up))
 			return;
 		}
 		
@@ -84,7 +84,7 @@ public class SignupCheck extends HttpServlet {
 		
 		if(!emailMatcher.find()) {
 			//Match not found, returning error
-			response.sendRedirect("/"); //Send with error status = 2 (bad email formatting)
+			response.sendRedirect("/?errorId=2"); //Send with error status = 2 (bad email formatting)
 			return;
 		}
 		
@@ -92,26 +92,26 @@ public class SignupCheck extends HttpServlet {
 		try {
 			if(userDAO.getUserFromUsername(username) != null) {
 				// Username is already present
-				response.sendRedirect("/"); //Send with error status = 3 (username already taken)
+				response.sendRedirect("/?errorId=3"); //Send with error status = 3 (username already taken)
 				return;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
 		}
 		
 		//Check matching passwords
 		if(!password.equals(repeatPassword)) {
-			response.sendRedirect("/"); //Send with error status = 4 (passwords not matching)
+			response.sendRedirect("/?errorId=4"); //Send with error status = 4 (passwords not matching)
 			return;
 		}
 		
-		// Create startthe user and add it to the database
+		// Create start the user and add it to the database
 		try {
 			userDAO.createUser(username, email, password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database user creation");
+			
 		}
 		
 		// Add session creation here

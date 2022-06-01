@@ -3,7 +3,7 @@ package it.polimi.tiw.beans;
 public class Comment {
 
 	private int progressive;
-	private String image_path;
+	private int image_id;
 	private String user;
 	private String text;
 	public int getProgressive() {
@@ -12,11 +12,11 @@ public class Comment {
 	public void setProgressive(int progressive) {
 		this.progressive = progressive;
 	}
-	public String getImage_path() {
-		return image_path;
+	public int getImage_id() {
+		return image_id;
 	}
-	public void setImage_path(String image_path) {
-		this.image_path = image_path;
+	public void setImage_id(int image_id) {
+		this.image_id = image_id;
 	}
 	public String getUser() {
 		return user;

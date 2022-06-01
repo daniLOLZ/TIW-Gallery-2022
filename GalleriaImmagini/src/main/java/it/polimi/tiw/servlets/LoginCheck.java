@@ -53,21 +53,23 @@ public class LoginCheck extends HttpServlet {
         String password = request.getParameter("password");
 
         UserDAO userDAO = new UserDAO(connection);
-
-        if(username == null || password == null ){
-			response.sendRedirect("/"); //Send with error status = 1 (null inputs)
+        
+        if(username == null || password == null ||
+           username.isEmpty() || password.isEmpty() || 
+     	   username.isBlank() || password.isBlank() ){
+			response.sendRedirect("/?errorId=5"); //Send with error status = 5 (null/invalid inputs (login))
             return;
 		}
 
         try {
 			if(userDAO.checkCredentials(username, password) == null) {
 				// User is present
-				response.sendRedirect("/"); //Send with error status = 2 (incorrect credentials)
+				response.sendRedirect("/?errorId=6"); //Send with error status = 6 (incorrect credentials)
 				return;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database checking user credentials");
 		}
 
         // Add session creation here

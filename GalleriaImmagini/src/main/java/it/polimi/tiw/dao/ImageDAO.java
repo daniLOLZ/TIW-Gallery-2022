@@ -19,16 +19,16 @@ public class ImageDAO {
 	
 	//Creating an image is not necessary for this project
 	
-	public Image getImageFromPath(String path) throws SQLException {
+	public Image getImageFromId(int id) throws SQLException {
 	
-		String query = "SELECT path, title, date, description FROM image WHERE path = ?";
+		String query = "SELECT id, path, title, date, description FROM image WHERE id = ?";
 		ResultSet resultSet = null; 
 		Image resultImage = null;
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, path);
+			preparedStatement.setInt(1, id);
 			resultSet = preparedStatement.executeQuery();
 			//The result set should be at most 1 row
 			if(!resultSet.next()) {
@@ -36,6 +36,7 @@ public class ImageDAO {
 			}
 			else {
 				resultImage = new Image();
+				resultImage.setId(resultSet.getInt("id"));
 				resultImage.setPath(resultSet.getString("path"));
 				resultImage.setTitle(resultSet.getString("title"));
 				resultImage.setDate(resultSet.getDate("date"));
@@ -65,7 +66,7 @@ public class ImageDAO {
 		}
 	public List<Image> getImagesInAlbum(int albumId) throws SQLException{
 		List<Image> imageList = new ArrayList<Image>();
-		String query = "SELECT path, title, date, description "
+		String query = "SELECT id, path, title, date, description "
 				+ 		"FROM image I, album A, containment C "
 				+ 		"WHERE C.image_path = I.image_path"
 				+ 		"AND C.album_id = A.?";
@@ -78,6 +79,49 @@ public class ImageDAO {
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Image image = new Image();
+				image.setId(resultSet.getInt("id"));
+				image.setPath(resultSet.getString("path"));
+				image.setTitle(resultSet.getString("title"));
+				image.setDate(resultSet.getDate("date"));
+				image.setDescription(resultSet.getString("description"));
+				imageList.add(image);
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		}
+		 finally {
+				try {
+					if (resultSet != null) {
+						resultSet.close();
+					}
+				} catch (Exception e1) {
+					throw new SQLException(e1);
+				}
+				try {
+					if (preparedStatement != null) {
+						preparedStatement.close();
+					}
+				} catch (Exception e2) {
+					throw new SQLException(e2);
+				}
+			}
+		return imageList;
+	}
+	public List<Image> getImagesOfUser(String username) throws SQLException{
+		List<Image> imageList = new ArrayList<Image>();
+		String query = "SELECT id, path, title, date, description "
+				+ 		"FROM image I"
+				+ 		"WHERE I.uploader_username = ?";
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Image image = new Image();
+				image.setId(resultSet.getInt("id"));
 				image.setPath(resultSet.getString("path"));
 				image.setTitle(resultSet.getString("title"));
 				image.setDate(resultSet.getDate("date"));

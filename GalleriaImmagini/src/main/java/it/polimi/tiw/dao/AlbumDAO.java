@@ -24,7 +24,6 @@ public class AlbumDAO {
 
 		String query = "SELECT id, title, date, creator_username FROM album WHERE albumId = ?";
 		
-		//todo cambia il resto che hai solo ctrl+v_ato
 		ResultSet resultSet = null; 
 		Album resultAlbum = null;
 		PreparedStatement preparedStatement = null;
@@ -144,13 +143,13 @@ public class AlbumDAO {
 		return code;
 	}
 	
-	public int addImageToAlbum(String image_path, int album_id) throws SQLException {
-		String query = "INSERT into containment (image_path, album_id) values (?, ?)";
+	public int addImageToAlbum(int image_id, int album_id) throws SQLException {
+		String query = "INSERT into containment (image_id, album_id) values (?, ?)";
 		int code = 0;
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, image_path);
+			preparedStatement.setInt(1, image_id);
 			preparedStatement.setInt(2, album_id);
 			code = preparedStatement.executeUpdate();
 		}

@@ -7,18 +7,16 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.polimi.tiw.dao.ImageDAO;
+//@WebServlet("/Album")
+public class GoToAlbumPage extends HttpServlet{
 
-//@WebServlet("/CreateEditAlbum")
-public class CreateEditAlbum extends HttpServlet{
-    
-    private Connection connection;
-	private static final long serialVersionUID = 1L;
-    
+    Connection connection;
+
     @Override
     public void init() throws ServletException {
         final String DB_URL = getServletContext().getInitParameter("dbUrl");
@@ -31,7 +29,6 @@ public class CreateEditAlbum extends HttpServlet{
 		try {
 			Class.forName(DRIVER_STRING);
 			connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            
 		}
 		catch (ClassNotFoundException e){
 			throw new UnavailableException("Can't load db driver");
@@ -43,29 +40,12 @@ public class CreateEditAlbum extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+    
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        String readAlbumId = request.getParameter("albumId");
-        String albumTitle = request.getParameter("albumTitle");
-
-        if( readAlbumId == null || albumTitle == null ){
-
-        }
-
-        Integer albumId = Integer.parseInt(readAlbumId); //Hidden parameter in ALBUM_EDIT_PAGE that will be submitted on pressing the submit button
-        ImageDAO imageDAO = new ImageDAO(connection);
-        try {
-            imageDAO.getImagesOfUser((String)request.getSession().getAttribute("username"));
-        } catch (SQLException e) {
-            response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
-        }
-
-        //No clue how multiple checkboxes will be seen server-side
-
     }
 
     @Override
