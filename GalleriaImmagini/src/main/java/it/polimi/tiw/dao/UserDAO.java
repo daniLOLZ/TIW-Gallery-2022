@@ -43,6 +43,7 @@ public class UserDAO {
 		return code;
 	}
 	
+	// insecure? should we only have checkCredentials?
 	public User getUserFromUsername(String username) throws SQLException {
 		// We need to create the database first, these names might change
 

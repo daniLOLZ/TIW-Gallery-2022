@@ -34,7 +34,6 @@ public class SignupCheck extends HttpServlet {
 //		final String PASS = getServletContext().getInitParameter("dbPasswordGreg");
 		final String PASS = getServletContext().getInitParameter("dbPasswordDani");
 		final String DRIVER_STRING = getServletContext().getInitParameter("dbDriver");
-		
 	
 		try {
 			Class.forName(DRIVER_STRING);
@@ -64,11 +63,12 @@ public class SignupCheck extends HttpServlet {
 		String password = request.getParameter("password");
 		String repeatPassword = request.getParameter("repeatPassword");
 		UserDAO userDAO = new UserDAO(connection);
+		String path = getServletContext().getContextPath();
 		
 		if(username == null || email == null || password == null || repeatPassword == null || 
 		   username.isEmpty()|| email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || 
 		   username.isBlank()|| email.isBlank() || password.isBlank() || repeatPassword.isBlank()){
-			response.sendRedirect("/?errorId=1"); //Send with error status = 1 (null/invalid inputs (sign up))
+			response.sendRedirect(path + "/?errorId=1"); //Send with error status = 1 (null/invalid inputs (sign up))
 			return;
 		}
 		
@@ -84,7 +84,7 @@ public class SignupCheck extends HttpServlet {
 		
 		if(!emailMatcher.find()) {
 			//Match not found, returning error
-			response.sendRedirect("/?errorId=2"); //Send with error status = 2 (bad email formatting)
+			response.sendRedirect(path + "/?errorId=2"); //Send with error status = 2 (bad email formatting)
 			return;
 		}
 		
@@ -92,7 +92,7 @@ public class SignupCheck extends HttpServlet {
 		try {
 			if(userDAO.getUserFromUsername(username) != null) {
 				// Username is already present
-				response.sendRedirect("/?errorId=3"); //Send with error status = 3 (username already taken)
+				response.sendRedirect(path + "/?errorId=3"); //Send with error status = 3 (username already taken)
 				return;
 			}
 		} catch (SQLException e) {
@@ -101,7 +101,7 @@ public class SignupCheck extends HttpServlet {
 		
 		//Check matching passwords
 		if(!password.equals(repeatPassword)) {
-			response.sendRedirect("/?errorId=4"); //Send with error status = 4 (passwords not matching)
+			response.sendRedirect(path + "/?errorId=4"); //Send with error status = 4 (passwords not matching)
 			return;
 		}
 		
@@ -124,7 +124,7 @@ public class SignupCheck extends HttpServlet {
 		
 		// We don't want a refreshing issue, so we redirect
 		
-		response.sendRedirect("/GoToHomePage"); // add in session information?
+		response.sendRedirect(path + "/GoToHomePage"); // add in session information?
 		
 	}
 	

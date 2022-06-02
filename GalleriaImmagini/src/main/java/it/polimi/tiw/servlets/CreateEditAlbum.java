@@ -53,10 +53,15 @@ public class CreateEditAlbum extends HttpServlet{
         String albumTitle = request.getParameter("albumTitle");
 
         if( readAlbumId == null || albumTitle == null ){
-
+        	// todo go back to the previous screen? back to just the album?
         }
 
-        Integer albumId = Integer.parseInt(readAlbumId); //Hidden parameter in ALBUM_EDIT_PAGE that will be submitted on pressing the submit button
+        try{
+        	Integer albumId = Integer.parseInt(readAlbumId); //Hidden parameter in ALBUM_EDIT_PAGE that will be submitted on pressing the submit button
+        } catch (NumberFormatException e) {
+        	// todo go back to the previous screen? back to just the album?
+        }
+        
         ImageDAO imageDAO = new ImageDAO(connection);
         try {
             imageDAO.getImagesOfUser((String)request.getSession().getAttribute("username"));

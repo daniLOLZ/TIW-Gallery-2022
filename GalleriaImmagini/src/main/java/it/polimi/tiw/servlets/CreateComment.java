@@ -53,6 +53,7 @@ public class CreateComment extends HttpServlet{
 		String readAlbumId = request.getParameter("albumId");
 		String readImageId = request.getParameter("imageId");
 		String commentText = request.getParameter("commentText");
+		String path = getServletContext().getContextPath();
 
 		if( readImageId == null || readImageId.isEmpty() ||
 			commentText == null || commentText.isEmpty() 
@@ -69,8 +70,8 @@ public class CreateComment extends HttpServlet{
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
 		}
-
-		response.sendRedirect("/GoToAlbumPage?albumId=" + readAlbumId + "&imageId=" + readImageId);
+		
+		response.sendRedirect( path + "/GoToAlbumPage?albumId=" + readAlbumId + "&imageId=" + readImageId);
     	
     }
 
