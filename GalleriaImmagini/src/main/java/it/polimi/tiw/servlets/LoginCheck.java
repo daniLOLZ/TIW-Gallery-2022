@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.TemplateEngine;
+//import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -74,24 +75,32 @@ public class LoginCheck extends HttpServlet {
         UserDAO userDAO = new UserDAO(connection);
         String path = getServletContext().getContextPath();
         
+        //final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+        
         if(username == null || password == null ||
            username.isEmpty() || password.isEmpty() || 
      	   username.isBlank() || password.isBlank() ){
-			response.sendRedirect(path + "/?errorId=5"); //Send with error status = 5 (null/invalid inputs (login))
+        	request.setAttribute("errorMsgLogin", "Invalid inputs received");
+        	//webContext.setVariable("errorMsgLogin", "Invalid inputs received");
+        	response.sendRedirect(path + "/"); //Send with error status = 5 (null/invalid inputs (login))
             return;
 		}
 
         try {
 			if(userDAO.checkCredentials(username, password) == null) {
 				// User is present
-				response.sendRedirect(path + "/?errorId=6"); //Send with error status = 6 (incorrect credentials)
+				request.setAttribute("errorMsgLogin", "Wrong credentials");
+				//webContext.setVariable("errorMsgLogin", "Wrong credentials");
+				response.sendRedirect(path + "/"); //Send with error status = 6 (incorrect credentials)
 				return;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database checking user credentials");
+			return;
 		}
 
+        
         // Add session creation here
 		HttpSession session = request.getSession(true);
 		//It should always be new, since the session is just now starting after sign in

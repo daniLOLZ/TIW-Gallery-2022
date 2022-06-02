@@ -15,9 +15,10 @@ public class LoggedFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         
-        HttpSession session = request.getSession();
-        if(session.isNew() || session.getAttribute("username") == null){
-            response.sendRedirect("/");
+        HttpSession session = request.getSession(false);
+        
+        if(session == null || session.isNew() || session.getAttribute("username") == null){
+            response.sendRedirect(getServletContext().getContextPath() + "/");
             return;
         }
 

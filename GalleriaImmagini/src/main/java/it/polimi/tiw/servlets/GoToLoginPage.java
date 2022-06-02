@@ -19,7 +19,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-//@WebServlet("/Login")
+//@WebServlet("/")
 public class GoToLoginPage extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

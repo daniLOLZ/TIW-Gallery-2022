@@ -15,7 +15,7 @@ Sign up or sign in.</h1>
 <form th:action="@{/LoginCheck}" method="POST">
 	Username: <input type="text" name="username" required> <br>
 	Password: <input type="password" name="password" required><br>
-	<input type="submit" value="login">	<p th:text=" ${errorMsg}"></p>
+	<input type="submit" value="login">	<p class="errorLabel" th:text=" ${errorMsgLogin}"></p>
 </form>
 
 <h2>Signup</h2>
@@ -24,7 +24,7 @@ Sign up or sign in.</h1>
 	Email: <input type="text" name="email" required><br>
 	Password: <input type="password" name="password" required><br>
 	Repeat password: <input type="password" name="repeatPassword" required><br>
-	<input type="submit" value="signup"> <p th:text=" ${errorMsg}"></p>
+	<input type="submit" value="signup"> <p class="errorLabel" th:text=" ${errorMsgSignup}"></p>
 </form>
 
 </body>

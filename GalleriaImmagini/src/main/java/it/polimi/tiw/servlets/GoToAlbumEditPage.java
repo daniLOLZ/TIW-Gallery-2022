@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/AlbumEdit")
+//@WebServlet("/AlbumEdit")
 public class GoToAlbumEditPage extends HttpServlet {
 	
 	private Connection connection;

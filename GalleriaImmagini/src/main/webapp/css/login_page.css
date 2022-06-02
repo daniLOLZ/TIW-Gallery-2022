@@ -3,3 +3,7 @@
 table, th, tr {
   border: 1px solid black;
 }
+
+.errorLabel {
+  color: red;
+}
