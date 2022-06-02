@@ -10,7 +10,4 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="build/classes"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Apache Software Foundation/Tomcat 9.0/lib/annotations-api.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Apache Software Foundation/Tomcat 9.0/lib/tomcat-jni.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Apache Software Foundation/Tomcat 9.0/lib/servlet-api.jar"/>
 </classpath>
