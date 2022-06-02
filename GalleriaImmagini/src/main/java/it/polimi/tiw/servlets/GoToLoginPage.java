@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 //@WebServlet("/Login")
 public class GoToLoginPage extends HttpServlet {
@@ -26,6 +28,18 @@ public class GoToLoginPage extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+    	
+    	ServletContext servletContext = getServletContext();
+		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
+		// a template resolver is an object in charge of resolving templates and containing additional information
+		// related to the template, like the template mode, if it can be cached and for how long. a servletcontext
+		// resolver specifically computes the resource from which to resolve the template based on a ServletContext
+		// object.
+		templateResolver.setTemplateMode(TemplateMode.HTML);
+		this.templateEngine = new TemplateEngine();
+		this.templateEngine.setTemplateResolver(templateResolver);
+		templateResolver.setSuffix(".html");
+    	
         final String DB_URL = getServletContext().getInitParameter("dbUrl");
 		final String USER = getServletContext().getInitParameter("dbUser");
 //		final String PASS = getServletContext().getInitParameter("dbPasswordGreg");
@@ -55,6 +69,7 @@ public class GoToLoginPage extends HttpServlet {
 		templateEngine.process(htmlPath, context, response.getWriter());
 		// In this case the login page should be identical in everything except for the error message, which gets
 		// displayed to the user if they already tried logging in / signing up once and failed.
+		
     }
 
     @Override
