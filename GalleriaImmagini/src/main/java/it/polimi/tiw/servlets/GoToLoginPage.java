@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+
 //@WebServlet("/Login")
 public class GoToLoginPage extends HttpServlet {
 
-    private Connection connection;
 	private static final long serialVersionUID = 1L;
+    private Connection connection;
+	private TemplateEngine templateEngine;
 
     @Override
     public void init() throws ServletException {
@@ -27,7 +32,6 @@ public class GoToLoginPage extends HttpServlet {
 		final String PASS = getServletContext().getInitParameter("dbPasswordDani");
 		final String DRIVER_STRING = getServletContext().getInitParameter("dbDriver");
 		
-	
 		try {
 			Class.forName(DRIVER_STRING);
 			connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -42,12 +46,15 @@ public class GoToLoginPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+    	String htmlPath = "/WEB-INF/login_page.html";
+		ServletContext servletContext = getServletContext();
+		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
+		// A webContext is used to pass variables to the template engine, just like the pageContext does
+		// in JSP.
+		// set error message variable to context
+		templateEngine.process(htmlPath, context, response.getWriter());
+		// In this case the login page should be identical in everything except for the error message, which gets
+		// displayed to the user if they already tried logging in / signing up once and failed.
     }
 
     @Override
