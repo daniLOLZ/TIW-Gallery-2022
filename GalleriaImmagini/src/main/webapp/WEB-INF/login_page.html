@@ -11,23 +11,20 @@
 <h1>Welcome to the PoliMi image gallery.<br>
 Sign up or sign in.</h1>
 
-<form th:action="@{/ConnectionTester}" method="POST">
+<h2>Login</h2>
+<form th:action="@{/LoginCheck}" method="POST">
+	Username: <input type="text" name="username" required> <br>
+	Password: <input type="password" name="pwd" required><br>
+	<input type="submit" value="login">	<p th:text=" ${errorMsg}"></p>
+</form>
 
-    <div>
-        <label>Album title:</label>
-        <input type="checkbox" th:field="${albumTitle}" />
-    </div>
-
-    <ul>
-        <li th:each="image : ${imagesMap}"> <!-- for each element image = {String path, boolean present} in allImages -->
-            <input type="checkbox"  th:checked="${image.present}"/>
-            <input type="image" th:for="${#ids.prev('image.path')}" src="" />
-        </li>
-    </ul>
-	
-	<div>
-    	<input type="submit" value="Submit"/>
-    </div>
+<h2>Signup</h2>
+<form th:action="@{/SignupCheck}" method="POST">
+	Email: <input type="text" name="email" required>
+	Username: <input type="text" name="username" required> <br>
+	Password: <input type="password" name="password" required><br>
+	Repeat password: <input type="password" name="repeatpassword" required><br>
+	<input type="submit" value="login">	<p th:text=" ${errorMsg}"></p>
 </form>
 
 </body>

@@ -8,20 +8,19 @@
 </head>
 
 <body>
-<h1>Welcome to the PoliMi image gallery.<br>
-Sign up or sign in.</h1>
+<h1>Create or edit an album</h1>
 
-<form th:action="@{/ConnectionTester}" th:object="${sampleCheckboxes}" method="post">
+<form th:action="@{/ConnectionTester}" method="POST">
 
     <div>
         <label>Album title:</label>
-        <input type="checkbox" th:field="*{albumTitle}" />
+        <input type="checkbox" th:field="${albumTitle}" />
     </div>
 
     <ul>
-        <li th:each="image : ${allImages}"> <!-- for each element image in allImages -->
-            <input type="checkbox" th:field="*{imagePaths}" th:value="${imagePath}" th:checked="${} ? 'checked'"/>
-            <input type="image" th:for="${#ids.prev('imagePaths')}" th:text="${imagePath}" src="" />
+        <li th:each="image : ${imagesMap}"> <!-- for each element image = {String path, boolean present} in allImages -->
+            <input type="checkbox"  th:checked="${image.present}"/>
+            <input type="image" th:for="${#ids.prev('image.path')}" src="" />
         </li>
     </ul>
 	
