@@ -23,7 +23,8 @@ import it.polimi.tiw.dao.UserDAO;
 //@WebServlet("/LoginCheck")
 public class LoginCheck extends HttpServlet {
 
-    Connection connection;
+	private static final long serialVersionUID = 1L;
+	Connection connection;
 	private TemplateEngine templateEngine;
 
     @Override
