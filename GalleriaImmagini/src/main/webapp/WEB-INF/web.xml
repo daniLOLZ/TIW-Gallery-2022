@@ -113,7 +113,7 @@ version="4.0">
 		<servlet-class>it.polimi.tiw.servlets.GoToAlbumEditPage</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>GoToAlbumEDitPage</servlet-name>
+		<servlet-name>GoToAlbumEditPage</servlet-name>
 		<url-pattern>/AlbumEdit</url-pattern>
 	</servlet-mapping>
 
