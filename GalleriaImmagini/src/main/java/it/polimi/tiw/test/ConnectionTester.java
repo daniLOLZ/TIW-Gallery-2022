@@ -14,16 +14,15 @@ public class ConnectionTester extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		final String DB_URL = getServletContext().getInitParameter("dbUrl");
-		final String USER = getServletContext().getInitParameter("dbUser");
-		final String PASS_greg = getServletContext().getInitParameter("dbPasswordGreg");
-		final String PASS_dani = getServletContext().getInitParameter("dbPasswordDani");
-		final String DRIVER_STRING = getServletContext().getInitParameter("dbDriver");
+		final String DB_URL = "jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC";
+		final String USER = "root";
+		final String PASS_greg = "C0ntinu@zione";
+		final String PASS_dani = "$nnH68bmJ4X4r*EXMR";
 		
 		String result = "Connection worked";
 		try {
-			Class.forName(DRIVER_STRING); // Inizializzo il driver necessario per connettersi alla BDD
-			DriverManager.getConnection(DB_URL, USER, PASS_dani); //Ottengo la connessione al db, usando il driver, attraverso il DriverManager
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			DriverManager.getConnection(DB_URL, USER, PASS_dani);
 		} catch (Exception e) {
 			result = "Connection failed";
 			e.printStackTrace();
