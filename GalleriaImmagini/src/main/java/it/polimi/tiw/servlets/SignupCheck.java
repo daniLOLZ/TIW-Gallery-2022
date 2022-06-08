@@ -76,13 +76,18 @@ public class SignupCheck extends HttpServlet {
 		// Simplified email Regex Format (excludes any special character
 		//beside . (dot), doesn't cover all possible emails):
 		// ([A-z]|[0-9])+(\.([A-z]|[0-9])+)*@([A-z]|[0-9])+\.([A-z]|[0-9])+
+	
 		
+		String patternString = "([A-z]|[0-9])+(\\.([A-z]|[0-9])+)*@([A-z]|[0-9])+\\.([A-z]|[0-9])+";
+		/*
 		Pattern emailPattern = Pattern.compile(
-				"([A-z]|[0-9])+(\\.([A-z]|[0-9])+)*@([A-z]|[0-9])+\\.([A-z]|[0-9])+",
+				patternString,
 				Pattern.LITERAL);
 		Matcher emailMatcher = emailPattern.matcher(email);
 		
-		if(!emailMatcher.find()) {
+		*/
+		
+		if(!email.matches(patternString)) {
 			//Match not found, returning error
 			response.sendRedirect(path + "/?errorId=2"); //Send with error status = 2 (bad email formatting)
 			return;
@@ -124,7 +129,7 @@ public class SignupCheck extends HttpServlet {
 		
 		// We don't want a refreshing issue, so we redirect
 		
-		response.sendRedirect(path + "/GoToHomePage"); // add in session information?
+		response.sendRedirect(path + "/Home"); // add in session information?
 		
 	}
 	

@@ -22,7 +22,9 @@ public class AlbumDAO {
 
 	public Album getAlbumFromId(int albumId) throws SQLException {
 
-		String query = "SELECT id, title, date, creator_username FROM album WHERE albumId = ?";
+		String query = "SELECT id, title, date, creator_username "
+				+ 		"FROM album "
+				+ 		"WHERE id = ?";
 		
 		ResultSet resultSet = null; 
 		Album resultAlbum = null;
@@ -34,7 +36,7 @@ public class AlbumDAO {
 			resultSet = preparedStatement.executeQuery();
 			//The result set should be at most 1 row
 			if(!resultSet.next()) {
-				// User not found
+				// Album not found
 			}
 			else {
 				resultAlbum = new Album();
@@ -66,11 +68,64 @@ public class AlbumDAO {
 		}
 		return resultAlbum;
 	}
+	
+	/**
+	 * Gets them from newest to oldest
+	 */
+	public List<Album> getAlbumsOfUser(String username) throws SQLException{
+		String query = "SELECT id, title, date, creator_username "
+				+ 		"FROM album "
+				+ 		"WHERE creator_username = ?"
+				+ 		"ORDER BY date DESC";
+		
+		ResultSet resultSet = null; 
+		List<Album> albumList = new ArrayList<Album>();
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Album album = new Album();
+				album.setId(resultSet.getInt("id"));
+				album.setTitle(resultSet.getString("title"));
+				album.setDate(resultSet.getDate("date"));
+				album.setCreator_username(resultSet.getString("creator_username"));
+				albumList.add(album);
+			}
+		}
+		catch (SQLException e) {
+			throw new SQLException(e);
+		}
+		finally {
+			// The order of closing is, for better safety, result -> statement -> connection
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (Exception e1) {
+				throw new SQLException(e1);
+			}
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} catch (Exception e2) {
+				throw new SQLException(e2);
+			}
+		}
+		return albumList;
+	}
 
+	/**
+	 * Gets them from newest to oldest
+	 */
 	public List<Album> getAllAlbums() throws SQLException{
 		List<Album> albumList = new ArrayList<Album>();
 		String query = "SELECT id, title, date, creator_username "
-				+ 		"FROM album A ";
+				+ 		"FROM album A "
+				+ 		"ORDER BY date DESC";
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
 		

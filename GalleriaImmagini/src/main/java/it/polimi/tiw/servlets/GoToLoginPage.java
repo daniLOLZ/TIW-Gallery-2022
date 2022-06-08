@@ -23,6 +23,8 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 public class GoToLoginPage extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
+	//DB connection not necessary in this page, can be removed
     private Connection connection;
 	private TemplateEngine templateEngine;
 
@@ -63,6 +65,45 @@ public class GoToLoginPage extends HttpServlet {
     	String htmlPath = "/WEB-INF/login_page.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
+		
+		String errorMsgLogin = "";
+		String errorMsgSignup = "";
+		String readErrorId = request.getParameter("errorId");
+		Integer errorId = -1;
+		
+		if(readErrorId == null) {
+			errorId = -1;
+		}
+		
+		try {
+			errorId = Integer.parseInt(readErrorId);
+		} catch (NumberFormatException e) {
+			errorId = -1;
+			//Bad query string, ignore the error id
+		}
+		
+		switch (errorId) {
+		case 1:
+			errorMsgSignup = "Invalid inputs received";
+			break;
+		case 2:
+			errorMsgSignup = "Bad email format";
+			break;
+		case 3:
+			errorMsgSignup = "Username already taken";
+			break;
+		case 4:
+			errorMsgSignup = "Passwords not matching";
+			break;
+		case 5:
+			errorMsgLogin = "Invalid inputs received";
+			break;
+		case 6:
+			errorMsgLogin = "Wrong credentials";
+		}
+		context.setVariable("errorMsgLogin", errorMsgLogin);
+		context.setVariable("errorMsgSignup", errorMsgSignup);
+		
 		// A webContext is used to pass variables to the template engine, just like the pageContext does
 		// in JSP.
 		// set error message variable to context
@@ -74,7 +115,13 @@ public class GoToLoginPage extends HttpServlet {
 
     @Override
     public void destroy() {
-        
+    	try {
+			if(connection != null){
+				connection.close();
+			}
+		} catch (SQLException e) {
+			
+		}
     }
 
 

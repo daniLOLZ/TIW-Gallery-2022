@@ -80,18 +80,16 @@ public class LoginCheck extends HttpServlet {
         if(username == null || password == null ||
            username.isEmpty() || password.isEmpty() || 
      	   username.isBlank() || password.isBlank() ){
-        	request.setAttribute("errorMsgLogin", "Invalid inputs received");
-        	//webContext.setVariable("errorMsgLogin", "Invalid inputs received");
-        	response.sendRedirect(path + "/"); //Send with error status = 5 (null/invalid inputs (login))
+        
+        	response.sendRedirect(path + "/?errorId=5"); //Send with error status = 5 (null/invalid inputs (login))
             return;
 		}
 
         try {
 			if(userDAO.checkCredentials(username, password) == null) {
 				// User is present
-				request.setAttribute("errorMsgLogin", "Wrong credentials");
-				//webContext.setVariable("errorMsgLogin", "Wrong credentials");
-				response.sendRedirect(path + "/"); //Send with error status = 6 (incorrect credentials)
+				
+				response.sendRedirect(path + "/?errorId=6"); //Send with error status = 6 (incorrect credentials)
 				return;
 			}
 		} catch (SQLException e) {
@@ -108,7 +106,7 @@ public class LoginCheck extends HttpServlet {
 			request.getSession().setAttribute("username", username);
 		}
 
-        response.sendRedirect(path + "/GoToHomePage");
+        response.sendRedirect(path + "/Home");
     }
 
     @Override

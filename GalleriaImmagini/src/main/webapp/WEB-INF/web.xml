@@ -128,9 +128,9 @@ version="4.0">
 	</filter> 
 	<filter-mapping> 
 		<filter-name>LoggedFilter</filter-name> 
-		<url-pattern>/GoToHomePage</url-pattern> 
-		<url-pattern>/GoToAlbumPage</url-pattern> 
-		<url-pattern>/GoToAlbumEditPage</url-pattern> 
+		<url-pattern>/Home</url-pattern> 
+		<url-pattern>/Album</url-pattern> 
+		<url-pattern>/AlbumEdit</url-pattern> 
 		<url-pattern>/Logout</url-pattern>
 		<url-pattern>/CreateComment</url-pattern>  
 		<url-pattern>/CreateEditAlbum</url-pattern> 

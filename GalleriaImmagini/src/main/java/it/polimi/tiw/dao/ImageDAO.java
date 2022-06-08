@@ -64,12 +64,17 @@ public class ImageDAO {
 		}
 		return resultImage;
 		}
+	
+	/**
+	 * Gets them from newest to oldest
+	 */
 	public List<Image> getImagesInAlbum(int albumId) throws SQLException{
 		List<Image> imageList = new ArrayList<Image>();
 		String query = "SELECT id, path, title, date, description "
 				+ 		"FROM image I, album A, containment C "
 				+ 		"WHERE C.image_path = I.image_path"
-				+ 		"AND C.album_id = A.?";
+				+ 		"AND C.album_id = A.?"
+				+ 		"ORDER BY date DESC";
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -107,11 +112,16 @@ public class ImageDAO {
 			}
 		return imageList;
 	}
+	
+	/**
+	 * Gets them from newest to oldest
+	 */
 	public List<Image> getImagesOfUser(String username) throws SQLException{
 		List<Image> imageList = new ArrayList<Image>();
 		String query = "SELECT id, path, title, date, description "
 				+ 		"FROM image I"
-				+ 		"WHERE I.uploader_username = ?";
+				+ 		"WHERE I.uploader_username = ?"
+				+ 		"ORDER BY date DESC";
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
 		
