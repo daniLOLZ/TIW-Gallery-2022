@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>PF15 - Home page</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/home_page.css" th:href="@{/css/home_page.css}" />
+</head>
+<!-- attributi per thymeleaf: userAlbums e othersAlbum che sono List<Album> -->
+<body>
+
+	<h1>ImageGallery Albums</h1>
+
+	<h2>Your albums</h2>
+	<table border="1">
+		<thead>
+			<tr>
+				<td>ID</td>
+				<td>Title</td>
+				<td>Date</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="album : ${userAlbums}">
+				<td th:text="${album.getId()}">id1</td>
+				<td th:text="${album.getTitle()}">title1</td>
+				<td th:text="${album.getDate()}">date1</td>
+			</tr>
+		</tbody>
+	</table>
+	<h2>Other users' albums</h2>
+	<table border="1">
+		<thead>
+			<tr>
+				<td>ID</td>
+				<td>Creator</td>
+				<td>Title</td>
+				<td>Date</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="album : ${othersAlbums}">
+				<td th:text="${album.getId()}">id3</td>
+				<td th:text="${album.getCreator_username()}">creator3</td>
+				<td th:text="${album.getTitle()}">title3</td>
+				<td th:text="${album.getDate()}">date3</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>PF15 - Home page</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/album_page.css" th:href="@{/css/album_page.css}" />
+</head>
+<!-- thymeleaf parameters: thumbnailList, showNext, showPrev, isImageShown, shownImage, comments,
+	imageId, showEditButton -->
+<body>
+
+	<h1>ImageGallery Albums</h1>
+
+	<h2>Your albums</h2>
+	<table border="1">
+		<thead>
+			<tr>
+				<td>place</td>
+				<td>holder</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:each="thumbnail : ${thumbnailList}" th:text="placeholder">placeholder</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
