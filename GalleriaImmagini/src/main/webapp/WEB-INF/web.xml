@@ -116,6 +116,15 @@ version="4.0">
 		<servlet-name>GoToAlbumEditPage</servlet-name>
 		<url-pattern>/AlbumEdit</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping>
 
 	<!-- Aggiungi gli altri mapping -->
 
@@ -134,6 +143,14 @@ version="4.0">
 		<url-pattern>/Logout</url-pattern>
 		<url-pattern>/CreateComment</url-pattern>  
 		<url-pattern>/CreateEditAlbum</url-pattern> 
+	</filter-mapping>
+	<filter>
+		<filter-name>AlreadyLoggedFilter</filter-name> 
+		<filter-class>it.polimi.tiw.filters.AlreadyLoggedFilter</filter-class> 
+	</filter>
+	<filter-mapping>
+		<filter-name>AlreadyLoggedFilter</filter-name> 
+		<url-pattern>/</url-pattern> 
 	</filter-mapping>
 		
 </web-app>

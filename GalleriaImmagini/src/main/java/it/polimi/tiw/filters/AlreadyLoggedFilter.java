@@ -9,18 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoggedFilter extends HttpFilter {
-	
+public class AlreadyLoggedFilter extends HttpFilter {
+
 	private static final long serialVersionUID = 1L;
-    
-    @Override
+	
+	@Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         
         HttpSession session = request.getSession(false);
         
-        if(session == null || session.isNew() || session.getAttribute("username") == null){
-            response.sendRedirect(getServletContext().getContextPath() + "/");
+        if(!(session == null || session.isNew() || session.getAttribute("username") == null)){
+        	response.sendRedirect(getServletContext().getContextPath() + "/Home");
             return;
         }
 

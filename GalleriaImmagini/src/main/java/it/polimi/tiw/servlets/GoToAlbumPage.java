@@ -75,7 +75,7 @@ public class GoToAlbumPage extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-    	String htmlPath = "/WEB-INF/home_page.html";
+    	String htmlPath = "/WEB-INF/album_page.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
     	
@@ -187,6 +187,7 @@ public class GoToAlbumPage extends HttpServlet{
     		lowerBound = (availablePages-1)*IMAGES_PER_PAGE + 1;
     		upperBound = availablePages * IMAGES_PER_PAGE;
     	}
+    	
     	//To avoid going out of bounds
     	if(imageList.size() < upperBound) upperBound = imageList.size();
     	
@@ -216,21 +217,22 @@ public class GoToAlbumPage extends HttpServlet{
     		}
     	}
     	
+    	int imageId = -1;
     	if(isImageShown) {
     		shownImage = imageList.get(imagePosition-1);
+    		imageId = shownImage.getId();
+    	
+			//Also show the form with all the elements in it:
+			// CommentDAO.getAllCommentsForImage(curImage.getId()) 
+			// Show the form, with a hidden field containing the image id
+			try {
+				comments = commentDAO.getAllCommentsForImage(imageId);
+			} catch (SQLException e) {
+				response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in retrieving comments");
+				return;
+			}
+			
     	}
-    	int imageId = shownImage.getId();
-    	
-    	//Also show the form with all the elements in it:
-    	// CommentDAO.getAllCommentsForImage(curImage.getId()) 
-    	// Show the form, with a hidden field containing the image id
-    	try {
-			comments = commentDAO.getAllCommentsForImage(imageId);
-		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in retrieving comments");
-			return;
-		}
-    	
     	// If this album is the user's, show the Edit button
     	if(album.getCreator_username().equals((String)request.getSession().getAttribute("username"))) {
     		showEditButton = true;
@@ -241,8 +243,10 @@ public class GoToAlbumPage extends HttpServlet{
     	context.setVariable("showPrev", showPrev);
     	context.setVariable("isImageShown", isImageShown);
     	context.setVariable("shownImage", shownImage);
-    	context.setVariable("comments", comments);
-    	context.setVariable("imageId", imageId);
+    	if(isImageShown) {
+	    	context.setVariable("comments", comments);
+	    	context.setVariable("imageId", imageId);
+    	}
     	context.setVariable("showEditButton", showEditButton);
     	
 		templateEngine.process(htmlPath, context, response.getWriter());

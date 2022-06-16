@@ -1,6 +1,7 @@
 package it.polimi.tiw.beans;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Album {
 
@@ -34,6 +35,20 @@ public class Album {
 		this.creator_username = creator_username;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Album album = (Album) obj;
+        return this.creator_username.equals(album.creator_username) &&
+        		this.date.equals(album.date) &&
+        		this.id == album.id &&
+        		this.title.equals(album.title);
+	}
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(creator_username,date,id,title);
+	}
 	
 }

@@ -88,7 +88,7 @@ public class GoToHomePage extends HttpServlet{
 		}
     	
     	//Gets other users' albums, excluding this user's
-    	othersAlbums.removeAll(userAlbums);    	
+    	othersAlbums.removeAll(userAlbums);  
     	
     	//They are already in descending order (see DAO implementation)
     	
