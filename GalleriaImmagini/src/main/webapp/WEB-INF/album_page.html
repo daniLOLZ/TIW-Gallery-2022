@@ -7,13 +7,17 @@
 <link rel="stylesheet" type="text/css" media="all"
 	href="css/album_page.css" th:href="@{/css/album_page.css}" />
 </head>
-<!-- thymeleaf parameters: thumbnailList, showNext, showPrev, isImageShown, shownImage, comments,
-	imageId, showEditButton -->
+<!-- thymeleaf parameters: thumbnailList lista di immagini, showNext boolean, showPrev boolean, isImageShown boolean, shownImage image, comments lista di comment,
+	imageId id dell'immagine, showEditButton boolean -->
 <body>
 
-	<h1>ImageGallery Albums</h1>
+	<form th:action="@{/Logout}" method="POST">
+		<input id="logoutButton" type="submit" value="Logout" />
+	</form>
 
-	<h2>Your albums</h2>
+	<h1>Album view</h1>
+
+	<h2 th:text="${isImageShown} ? 'Image' : 'Album'">Album</h2>
 	<table border="1">
 		<thead>
 			<tr>

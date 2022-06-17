@@ -1,17 +1,14 @@
 package it.polimi.tiw.servlets;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream.PutField;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.naming.ldap.SortControl;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +18,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-
-import com.mysql.cj.Session;
 
 import it.polimi.tiw.beans.Album;
 import it.polimi.tiw.dao.AlbumDAO;
