@@ -18,27 +18,6 @@ public class Logout extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	
-    public void init() throws ServletException {
-		final String DB_URL = getServletContext().getInitParameter("dbUrl");
-		final String USER = getServletContext().getInitParameter("dbUser");
-//		final String PASS = getServletContext().getInitParameter("dbPasswordGreg");
-		final String PASS = getServletContext().getInitParameter("dbPasswordDani");
-		final String DRIVER_STRING = getServletContext().getInitParameter("dbDriver");
-		
-	
-		try {
-			Class.forName(DRIVER_STRING);
-			connection = DriverManager.getConnection(DB_URL, USER, PASS);
-		}
-		catch (ClassNotFoundException e){
-			throw new UnavailableException("Can't load db driver");
-		}
-		catch (SQLException e) {
-			throw new UnavailableException("Can't connect to database");
-		}
-    }
-	
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Clear the user session and go to the login page
 		HttpSession session = request.getSession(false);

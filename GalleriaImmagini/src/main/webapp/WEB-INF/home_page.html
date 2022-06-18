@@ -9,6 +9,11 @@
 </head>
 <!-- attributi per thymeleaf: userAlbums e othersAlbum che sono List<Album> -->
 <body>
+	<div class="logoutButton">
+		<form th:action="@{/Logout}" method="POST">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
 
 	<h1>ImageGallery Albums</h1>
 
@@ -23,7 +28,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="album : ${userAlbums}">
-				<td th:text="${album.getId()}">id1</td>
+				<td> <a th:text="${album.getId()}" th:href="@{/Album(id=${album.getId()})}"></a> </td>
 				<td th:text="${album.getTitle()}">title1</td>
 				<td th:text="${album.getDate()}">date1</td>
 			</tr>
@@ -41,10 +46,10 @@
 		</thead>
 		<tbody>
 			<tr th:each="album : ${othersAlbums}">
-				<td th:text="${album.getId()}">id3</td>
-				<td th:text="${album.getCreator_username()}">creator3</td>
-				<td th:text="${album.getTitle()}">title3</td>
-				<td th:text="${album.getDate()}">date3</td>
+				<td> <a th:text="${album.getId()}" th:href="@{/Album(id=${album.getId()})}">id2</a></td>
+				<td th:text="${album.getCreator_username()}">creator2</td>
+				<td th:text="${album.getTitle()}">title2</td>
+				<td th:text="${album.getDate()}">date2</td>
 			</tr>
 		</tbody>
 	</table>

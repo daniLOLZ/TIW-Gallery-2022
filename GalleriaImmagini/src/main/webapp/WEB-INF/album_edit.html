@@ -4,31 +4,38 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Log in/sign up</title>
-<link rel="stylesheet" type="text/css" media="all" href="css/mystyle.css" th:href="@{/css/login_page.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="css/mystyle.css" th:href="@{/css/login_page.css}" />
 </head>
 
 <body>
-<h1>Create or edit an album</h1>
 
-<form th:action="@{/CreateEditAlbum}" method="POST">
+	<form th:action="@{/Logout}" method="POST">
+		<input id="logoutButton" type="submit" value="Logout" />
+	</form>
 
-    <div>
-        <label>Album title:</label>
-        <input type="text" th:value="${albumTitle}" />
-    </div>
+	<h1>Create or edit an album</h1>
 
-    <ul>
-        <li th:each="image : ${imagesMap.keySet()}"> <!-- for each element image = {Image image, boolean present} in allImages -->
-            <input type="checkbox" th:id="${image.id}" th:checked="${imagesMap.get(image)}"/>
-            <img th:src="${image.path}" />
-            <!-- th:for="${#ids.prev('image.path')}"     -->
-        </li>
-    </ul>
-	
-	<div>
-    	<input type="submit" value="Submit"/>
-    </div>
-</form>
+	<form th:action="@{/CreateEditAlbum}" method="POST">
+
+		<div>
+			<label>Album title:</label> 
+			<input type="text" th:value="${albumTitle}" />
+		</div>
+
+		<ul>
+			<li th:each="image : ${imagesMap.keySet()}">
+				<!-- for each element image = {String path, boolean present} in allImages -->
+				<input type="checkbox" th:id="${image.id}" th:checked="${imagesMap.get(image)}"/>
+				<img th:src="${image.path}" />
+				<!-- th:for="${#ids.prev('image.path')}"     -->
+			</li>
+		</ul>
+
+		<div>
+			<input type="submit" value="Submit" />
+		</div>
+	</form>
 
 </body>
 </html>
