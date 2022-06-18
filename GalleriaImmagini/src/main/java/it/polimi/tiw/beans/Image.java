@@ -1,6 +1,7 @@
 package it.polimi.tiw.beans;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Image {
 
@@ -39,6 +40,23 @@ public class Image {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Image image = (Image) obj;
+        return this.description.equals(image.description) &&
+        		this.date.equals(image.date) &&
+        		this.id == image.id &&
+        		this.title.equals(image.title) &&
+        		this.path.equals(image.path);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, path, title, date, description);
 	}
 	
 }

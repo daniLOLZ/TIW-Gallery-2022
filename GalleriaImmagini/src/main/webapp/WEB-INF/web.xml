@@ -144,13 +144,5 @@ version="4.0">
 		<url-pattern>/CreateComment</url-pattern>  
 		<url-pattern>/CreateEditAlbum</url-pattern> 
 	</filter-mapping>
-	<filter>
-		<filter-name>AlreadyLoggedFilter</filter-name> 
-		<filter-class>it.polimi.tiw.filters.AlreadyLoggedFilter</filter-class> 
-	</filter>
-	<filter-mapping>
-		<filter-name>AlreadyLoggedFilter</filter-name> 
-		<url-pattern>/</url-pattern> 
-	</filter-mapping>
 		
 </web-app>
