@@ -17,7 +17,7 @@
 
 	<h1>Album view</h1>
 
-	<h2 th:text="${isImageShown} ? 'Image' : 'Album'">Album</h2>
+	<h2 th:text="${isImageShown} ? 'Album image' : 'Album'">Album</h2>
 	<table border="1">
 		<thead>
 			<tr>
@@ -26,8 +26,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td th:each="thumbnail : ${thumbnailList}" th:text="placeholder">placeholder</td>
+			<tr th:each="thumbnail : ${thumbnailList}">
+				<td> <img src="./Ferret1.jpg"> </td>
+				<td>  </td>
 			</tr>
 		</tbody>
 	</table>

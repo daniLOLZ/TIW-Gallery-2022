@@ -92,7 +92,7 @@ public class GoToAlbumPage extends HttpServlet{
 		CommentDAO commentDAO = new CommentDAO(connection);
 		List<Album> retrievedAlbumList = null;
 		List<Image> imageList = null;
-		List<Image> imagesToShow= null;
+		List<Image> imagesToShow = null;
 		List<Comment> comments = null;
 		Album album = null;
 		Image shownImage = null;
