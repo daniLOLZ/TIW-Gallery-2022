@@ -20,6 +20,12 @@ public class AlbumDAO {
 		this.connection = connection;
 	}
 
+	/**
+	 * Retrieves the album from the database
+	 * @param albumId
+	 * @return the requested album, or null if the album was not found
+	 * @throws SQLException
+	 */
 	public Album getAlbumFromId(int albumId) throws SQLException {
 
 		String query = "SELECT id, title, date, creator_username "

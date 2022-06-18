@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -65,6 +66,14 @@ public class GoToLoginPage extends HttpServlet {
     	String htmlPath = "/WEB-INF/login_page.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
+		
+		//Checking whether the user is already logged in, in that case send them to the home page
+		HttpSession session = request.getSession(false);
+        
+        if(!(session == null || session.isNew() || session.getAttribute("username") == null)){
+        	response.sendRedirect(getServletContext().getContextPath() + "/Home");
+            return;
+        }
 		
 		String errorMsgLogin = "";
 		String errorMsgSignup = "";
