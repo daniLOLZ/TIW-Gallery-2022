@@ -21,14 +21,33 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<td>place</td>
-				<td>holder</td>
+				<td th:if="${showPrev}">Previous</td>
+				<td>Image</td>
+				<td>Title</td>
+				<td>Date</td>
+				<td>Description</td>
+				<td th:if="${showNext}">Next</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="thumbnail : ${thumbnailList}">
-				<td> <img src="/images/animals/Ferret1.jpg" th:src="@{${thumbnail.path}}"> </td>
-				<td>  </td>
+				<td><img th:src="${thumbnail.getPath}" alt="Album image"></td> <!-- always set some fixed dimensions here! otherwise the html flickers while loading (or so I've read) -->
+				<td th:text="${thumbnail.getTitle()}"/>
+				<td th:text="${thumbnail.getDate()}"/>
+				<td th:text="${thumbnail.getDescription()}"/>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<button th:if="${showEditButton}">Edit album</button>
+	<br>
+	<img th:if="${isImageShown}" th:src="${shownImage.getPath()}" alt="Detailed image">
+	<br>
+	<table th:if="${isImageShown}">
+		<tbody>
+			<tr th:each="comment : ${comments}">
+				<td th:text="${comment.getUser()"></td>
+				<td th:text="${comment.getText()"></td>
 			</tr>
 		</tbody>
 	</table>
