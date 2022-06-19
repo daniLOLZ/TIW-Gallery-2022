@@ -3,17 +3,23 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>PF15 - Home page</title>
-<link rel="stylesheet" type="text/css" media="all"
-	href="css/album_page.css" th:href="@{/css/album_page.css}" />
+<title>PF15 - Album page</title>
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/album_page.css}" />
 </head>
 <!-- thymeleaf parameters: thumbnailList lista di immagini, showNext boolean, showPrev boolean, isImageShown boolean, shownImage image, comments lista di comment,
 	imageId id dell'immagine, showEditButton boolean -->
 <body>
 
-	<form th:action="@{/Logout}" method="POST">
-		<input id="logoutButton" type="submit" value="Logout" />
-	</form>
+	<div class="homeButton">
+		<form th:action="@{/Home}" method="POST">
+			<input type="submit" value="Go to homepage" />
+		</form>
+	</div>
+	<div class="logoutButton">
+		<form th:action="@{/Logout}" method="POST">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
 
 	<h1>Album view</h1>
 
@@ -31,7 +37,13 @@
 		</thead>
 		<tbody>
 			<tr th:each="thumbnail : ${thumbnailList}">
-				<td><img th:src="@{${thumbnail.getPath}}" alt="Album image"></td> <!-- always set some fixed dimensions here! otherwise the html flickers while loading (or so I've read) -->
+				<td>
+					<a th:href="@{/Album(id = ${#httpServletRequest.getParameter('id')},
+										albumPage = ${#httpServletRequest.getParameter('albumPage')},
+										imagePosition = ${thumbnailList.indexOf(thumbnail)})}">
+						<img class="thumbnail" th:src="@{${thumbnail.getPath}}" alt="Album image">
+					</a>
+				</td>
 				<td th:text="${thumbnail.getTitle()}"/>
 				<td th:text="${thumbnail.getDate()}"/>
 				<td th:text="${thumbnail.getDescription()}"/>
@@ -46,12 +58,14 @@
 	<br>
 	<img th:if="${isImageShown}" th:src="${shownImage.getPath()}" alt="Detailed image">
 	<br>
-	<table th:if="${isImageShown}">
+	<table class="comment" th:if="${isImageShown}" th:each="comment : ${comments}">
 		<tbody>
-			<tr th:each="comment : ${comments}">
-				<td th:text="${comment.getUser()"></td>
-				<td th:text="${comment.getText()"></td>
-			</tr>
+				<tr>
+					<td class="commentUser" th:text="${comment.getUser()"></td>
+				</tr>
+				<tr>
+					<td class="commentText" th:text="${comment.getText()"></td>
+				</tr>
 		</tbody>
 	</table>
 

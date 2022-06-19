@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+
+.homeButton {
+	position: absolute;
+	top: 10px;
+	right: 70px;
+}
+
+.logoutButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.thumbnail {
+	width: 200px;
+	height: auto;
+}
+
+.commentUser {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.commentText {
+	font-size: 10px;
+}

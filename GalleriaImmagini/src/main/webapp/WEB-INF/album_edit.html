@@ -3,16 +3,22 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>Log in/sign up</title>
-<link rel="stylesheet" type="text/css" media="all"
-	href="css/mystyle.css" th:href="@{/css/login_page.css}" />
+<title>PF15 - Edit an album</title>
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/album_edit.css}" />
 </head>
 
 <body>
 
-	<form th:action="@{/Logout}" method="POST">
-		<input id="logoutButton" type="submit" value="Logout" />
-	</form>
+	<div class="homeButton">
+		<form th:action="@{/Home}" method="POST">
+			<input type="submit" value="Go to homepage" />
+		</form>
+	</div>
+	<div class="logoutButton">
+		<form th:action="@{/Logout}" method="POST">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
 
 	<h1>Create or edit an album</h1>
 
@@ -25,10 +31,8 @@
 
 		<ul>
 			<li th:each="image : ${imagesMap.keySet()}">
-				<!-- for each element image = {String path, boolean present} in allImages -->
 				<input type="checkbox" name="checkedImages" th:value="${image.id}" th:checked="${imagesMap.get(image)}"/>
 				<img th:src="@{${image.path}}" th:alt="${image.description}" />
-				<!-- th:for="${#ids.prev('image.path')}"     -->
 			</li>
 		</ul>
 		<input type="hidden" name="id" th:value="${#httpServletRequest.getParameter('id')}"/>

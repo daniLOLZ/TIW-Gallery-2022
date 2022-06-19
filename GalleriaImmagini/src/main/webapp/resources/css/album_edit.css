@@ -1,11 +1,9 @@
 @charset "ISO-8859-1";
 
-table, th, tr {
-  border: 1px solid black;
-}
-
-.errorLabel {
-  color: red;
+.homeButton {
+	position: absolute;
+	top: 10px;
+	right: 70px;
 }
 
 .logoutButton {
