@@ -27,7 +27,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="thumbnail : ${thumbnailList}">
-				<td> <img src="./Ferret1.jpg"> </td>
+				<td> <img src="/images/animals/Ferret1.jpg" th:src="@{${thumbnail.path}}"> </td>
 				<td>  </td>
 			</tr>
 		</tbody>

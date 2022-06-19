@@ -118,10 +118,10 @@ public class ImageDAO {
 	 */
 	public List<Image> getImagesOfUser(String username) throws SQLException{
 		List<Image> imageList = new ArrayList<Image>();
-		String query = "SELECT id, path, title, date, description "
+		String query = "SELECT I.id, I.path, I.title, I.date, I.description "
 				+ 		"FROM image I "
 				+ 		"WHERE I.uploader_username = ? "
-				+ 		"ORDER BY date DESC";
+				+ 		"ORDER BY date DESC;";
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
 		

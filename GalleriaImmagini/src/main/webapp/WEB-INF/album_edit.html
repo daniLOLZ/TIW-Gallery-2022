@@ -27,7 +27,7 @@
 			<li th:each="image : ${imagesMap.keySet()}">
 				<!-- for each element image = {String path, boolean present} in allImages -->
 				<input type="checkbox" th:id="${image.id}" th:checked="${imagesMap.get(image)}"/>
-				<img th:src="${image.path}" />
+				<img th:src="@{${image.path}}" th:alt="${image.description}" />
 				<!-- th:for="${#ids.prev('image.path')}"     -->
 			</li>
 		</ul>

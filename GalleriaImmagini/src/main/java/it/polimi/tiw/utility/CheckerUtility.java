@@ -1,5 +1,9 @@
 package it.polimi.tiw.utility;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class CheckerUtility {
 
 	/**
@@ -9,6 +13,25 @@ public class CheckerUtility {
 	 */
 	public static boolean checkAvailability(String value) {
 		return (value != null && !value.isBlank() && !value.isEmpty());
+	}
+
+	public static boolean checkValidImage(String imageString) {
+		ArrayList<String> validFormats = new ArrayList<String>() {
+			{
+				add("jpg");
+				add("png");
+				add("webp");
+			}
+		};
+				
+		return validFormats.contains(getImageExtension(imageString));
+	}
+
+	public static String getImageExtension(String imageString){
+		List<String> splitString = Arrays.asList(imageString.split("\\."));
+		if(splitString.size() == 0) return "";
+		String extension = splitString.get(splitString.size()-1); //Last token is the extension
+		return extension;
 	}
 
 }
