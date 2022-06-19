@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,7 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.polimi.tiw.beans.Image;
+import it.polimi.tiw.dao.AlbumDAO;
 import it.polimi.tiw.dao.CommentDAO;
+import it.polimi.tiw.dao.ImageDAO;
 import it.polimi.tiw.utility.CheckerUtility;
 
 //@WebServlet("/CreateComment")
@@ -52,16 +57,20 @@ public class CreateComment extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         
 		String username = (String) request.getSession().getAttribute("username"); // Guaranteed to exist thanks to filters
-		String readImageId = request.getParameter("imageId");
+		String readImagePosition = request.getParameter("imagePosition");
 		String readAlbumId = request.getParameter("albumId");
 		String commentText = request.getParameter("commentText");
 		String path = getServletContext().getContextPath();
+		ImageDAO imageDAO = new ImageDAO(connection);
 		CommentDAO commentDAO = new CommentDAO(connection);
 		
+		List<Image> images = new ArrayList<Image>();
+		
+		Integer imagePosition;
 		Integer imageId;
 		Integer albumId;
 
-		if( !CheckerUtility.checkAvailability(readImageId) ||
+		if( !CheckerUtility.checkAvailability(readImagePosition) ||
 			!CheckerUtility.checkAvailability(readAlbumId) ||
 			!CheckerUtility.checkAvailability(commentText) )
 		{
@@ -70,7 +79,7 @@ public class CreateComment extends HttpServlet{
 		}
 
 		try {
-			imageId = Integer.parseInt(readImageId);
+			imagePosition = Integer.parseInt(readImagePosition);
 			albumId = Integer.parseInt(readAlbumId);
 		} catch (NumberFormatException e) {
 			//This might need to go somewhere else, but for now it's easiest to redirect to Home
@@ -78,13 +87,25 @@ public class CreateComment extends HttpServlet{
 			return;
 		}
 
+		//Get the image list
+		try {
+			images = imageDAO.getImagesInAlbum(albumId);
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
+		}
+		
+		//There is at least the same amount of images as the position read from the form
+		imageId = images.get(imagePosition-1).getId();
+		
 		try {
 			commentDAO.createComment(imageId, username, commentText);
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
 		}
 		
-		response.sendRedirect( path + "/GoToAlbumPage?albumId=" + readAlbumId + "&imageId=" + readImageId);
+		response.sendRedirect( path + "/Album?id=" + readAlbumId + "&image=" + readImagePosition);
     	
     }
 

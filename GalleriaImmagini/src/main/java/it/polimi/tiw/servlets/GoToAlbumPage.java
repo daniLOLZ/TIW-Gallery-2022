@@ -137,7 +137,7 @@ public class GoToAlbumPage extends HttpServlet{
 	    			response.sendRedirect(getServletContext().getContextPath() + "/Home");
 	    			return;
 	    		}
-	    		// I don't need to have a query string without an id, so i redirect to the same page but adding the id
+	    		// I don't want to have a query string without an id, so i redirect to the same page but adding the id
 	    		else {
 	    			response.sendRedirect(getServletContext().getContextPath() + "/Album?id=" + retrievedAlbumList.get(0).getId());
 	    			return;

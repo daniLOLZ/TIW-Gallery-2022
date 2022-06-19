@@ -35,8 +35,8 @@
 	</table>
 	<h6 th:if="${!userAlbums.size()}">You have no albums! Create one with the button below.</h6>
 	<br>
-	<form>
-		<input th:action="@{/CreateAlbum}" type="submit" value="Create a new album"/>
+	<form th:action="@{/CreateAlbum}">
+		<input type="submit" value="Create a new album"/>
 	</form>
 	<br>
 	<h2>Other users' albums</h2>

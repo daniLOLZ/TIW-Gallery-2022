@@ -83,10 +83,10 @@
 		<form th:action="@{/CreateComment}" method="POST">
 			<table>
 				<tr>
-					<td><input type="hidden" name="username" th:value="${#request.getParameter('username')}"></td>
+					<td><input type="hidden" name="albumId" th:value="${#request.getParameter('id')}"></td>
 				</tr>
 				<tr>
-					<td><input type="hidden" name="albumId" th:value="${#request.getParameter('id')}"></td>
+					<td><input type="hidden" name="imagePosition" th:value="${#request.getParameter('image')}"></td>
 				</tr>
 				<tr>
 					<td><textarea id="yourComment" name="commentText" placeholder="Your comment goes here..." required></textarea></td>

@@ -5,11 +5,16 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.apache.tomcat.jni.Time;
+import org.thymeleaf.expression.Calendars;
 
 import it.polimi.tiw.beans.Album;
 
@@ -184,8 +189,8 @@ public class AlbumDAO {
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, title);
-			Date currentDate = new Date(Instant.now().toEpochMilli());
-			preparedStatement.setDate(2, currentDate);
+			Timestamp currentDate = new Timestamp(Instant.now().toEpochMilli());
+			preparedStatement.setTimestamp(2, currentDate, Calendar.getInstance());
 			preparedStatement.setString(3, creator_username);
 			code = preparedStatement.executeUpdate();
 		}

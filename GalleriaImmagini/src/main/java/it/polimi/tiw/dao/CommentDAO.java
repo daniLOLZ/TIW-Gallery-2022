@@ -107,7 +107,7 @@ public class CommentDAO {
 	public int createComment(int image_id, String user, String text) throws SQLException{
 		
 		int code = 0;
-		String query = "INSERT into comment (image_id, user, text) values (?, ?, ?, ?)";
+		String query = "INSERT into comment (image_id, user, text) values (?, ?, ?)";
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = connection.prepareStatement(query);
