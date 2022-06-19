@@ -56,7 +56,7 @@
 		<input type="submit" value="Edit album"/>
 	</form>
 	<br>
-	<img th:if="${isImageShown}" th:src="${shownImage.getPath()}" alt="Detailed image">
+	<img th:if="${isImageShown}" th:src="@{${shownImage.getPath()}}" alt="Detailed image">
 	<br>
 	<table class="comment" th:if="${isImageShown}" th:each="comment : ${comments}">
 		<tbody>
