@@ -25,28 +25,15 @@
 
 	<h2 th:text="${isImageShown} ? 'Album image' : 'Album'">Album</h2>
 	<table border="1">
-		<thead>
-			<tr>
-				<td th:if="${showPrev}">Previous</td>
-				<td>Image</td>
-				<td>Title</td>
-				<td>Date</td>
-				<td>Description</td>
-				<td th:if="${showNext}">Next</td>
-			</tr>
-		</thead>
 		<tbody>
-			<tr th:each="thumbnail : ${thumbnailList}">
-				<td>
-					<a th:href="@{/Album(id = ${#httpServletRequest.getParameter('id')},
-										albumPage = ${#httpServletRequest.getParameter('albumPage')},
-										imagePosition = ${thumbnailList.indexOf(thumbnail)})}">
+			<tr>
+				<td th:each="thumbnail : ${thumbnailList}">
+					<a th:href="@{/Album(id = ${#request.getParameter('id')},
+										page = ${#request.getParameter('page')},
+										image = ${thumbnailList.indexOf(thumbnail)}+1)}"> <!-- +1 because the position managed by the servlet is 1 through 5 -->
 						<img class="thumbnail" th:src="@{${thumbnail.getPath}}" alt="Album image">
 					</a>
 				</td>
-				<td th:text="${thumbnail.getTitle()}"/>
-				<td th:text="${thumbnail.getDate()}"/>
-				<td th:text="${thumbnail.getDescription()}"/>
 			</tr>
 		</tbody>
 	</table>
@@ -56,18 +43,60 @@
 		<input type="submit" value="Edit album"/>
 	</form>
 	<br>
-	<img th:if="${isImageShown}" th:src="@{${shownImage.getPath()}}" alt="Detailed image">
-	<br>
-	<table class="comment" th:if="${isImageShown}" th:each="comment : ${comments}">
-		<tbody>
+	
+	<div th:if="${isImageShown}">
+		<table border="1">
+			<thead>
 				<tr>
-					<td class="commentUser" th:text="${comment.getUser()"></td>
+					<td>Image</td>
+					<td>Title</td>
+					<td>Date</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<img th:src="@{${shownImage.getPath()}}" alt="Detailed image">
+					</td>
+					<td th:text="${shownImage.getTitle()}"/>
+					<td th:text="${shownImage.getDate()}"/>
+					<td th:text="${shownImage.getDescription()}"/>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<div class="comment" th:each="comment : ${comments}">
+			<table>
+				<tbody>
+					<tr>
+						<td class="commentUser" th:text="${comment.getUser()} + ' said:'"></td>
+					</tr>
+					<tr>
+						<td class="commentText" th:text="${comment.getText()}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+		</div>
+		
+		<form th:action="@{/CreateComment}" method="POST">
+			<table>
+				<tr>
+					<td><input type="hidden" name="username" th:value="${#request.getParameter('username')}"></td>
 				</tr>
 				<tr>
-					<td class="commentText" th:text="${comment.getText()"></td>
+					<td><input type="hidden" name="albumId" th:value="${#request.getParameter('id')}"></td>
 				</tr>
-		</tbody>
-	</table>
+				<tr>
+					<td><textarea id="yourComment" name="commentText" placeholder="Your comment goes here..." required></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Comment"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 
 </body>
 </html>

@@ -35,7 +35,7 @@
 				<img th:src="@{${image.path}}" th:alt="${image.description}" />
 			</li>
 		</ul>
-		<input type="hidden" name="id" th:value="${#httpServletRequest.getParameter('id')}"/>
+		<input type="hidden" name="id" th:value="${#request.getParameter('id')}"/>
 		<div>
 			<input type="submit" value="Submit" />
 		</div>
