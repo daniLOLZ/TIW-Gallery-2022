@@ -31,7 +31,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="thumbnail : ${thumbnailList}">
-				<td><img th:src="${thumbnail.getPath}" alt="Album image"></td> <!-- always set some fixed dimensions here! otherwise the html flickers while loading (or so I've read) -->
+				<td><img th:src="@{${thumbnail.getPath}}" alt="Album image"></td> <!-- always set some fixed dimensions here! otherwise the html flickers while loading (or so I've read) -->
 				<td th:text="${thumbnail.getTitle()}"/>
 				<td th:text="${thumbnail.getDate()}"/>
 				<td th:text="${thumbnail.getDescription()}"/>
@@ -39,7 +39,10 @@
 		</tbody>
 	</table>
 	<br>
-	<button th:if="${showEditButton}">Edit album</button>
+	<form method="GET" th:action="@{/AlbumEdit}" th:if="${showEditButton}">
+		<input type="hidden" name="id" th:value="${#httpServletRequest.getParameter('id')}">
+		<input type="submit" value="Edit album"/>
+	</form>
 	<br>
 	<img th:if="${isImageShown}" th:src="${shownImage.getPath()}" alt="Detailed image">
 	<br>
