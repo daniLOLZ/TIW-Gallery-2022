@@ -204,6 +204,7 @@ public class GoToAlbumPage extends HttpServlet{
     	if(CheckerUtility.checkAvailability(readImagePosition)) {
     		try {
 				imagePosition = Integer.parseInt(readImagePosition);
+				isImageShown = true;
 			} catch (NumberFormatException e) {
 				// Don't show the image
 				isImageShown = false;
