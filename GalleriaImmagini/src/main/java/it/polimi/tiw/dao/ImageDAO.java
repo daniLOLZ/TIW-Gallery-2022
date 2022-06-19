@@ -71,7 +71,7 @@ public class ImageDAO {
 	public List<Image> getImagesInAlbum(int albumId) throws SQLException{
 		List<Image> imageList = new ArrayList<Image>();
 		String query = "SELECT I.id, I.path, I.title, I.date, I.description "
-				+ 		"FROM image I, album A, containment C "
+				+ 		"FROM image I, containment C "
 				+ 		"WHERE C.image_id = I.id "
 				+ 		"AND C.album_id = ? "
 				+ 		"ORDER BY I.date DESC ";

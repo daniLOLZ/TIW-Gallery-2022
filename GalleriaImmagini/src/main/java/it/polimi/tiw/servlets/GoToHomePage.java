@@ -34,6 +34,11 @@ public class GoToHomePage extends HttpServlet{
     	ServletContext servletContext = getServletContext();
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
 		
+		// a template resolver is an object in charge of resolving templates and containing additional information
+		// related to the template, like the template mode, if it can be cached and for how long. a servletcontext
+		// resolver specifically computes the resource from which to resolve the template based on a ServletContext
+		// object.
+		    	
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		this.templateEngine = new TemplateEngine();
 		this.templateEngine.setTemplateResolver(templateResolver);

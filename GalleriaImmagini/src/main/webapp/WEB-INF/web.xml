@@ -56,12 +56,21 @@ version="4.0">
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>CreateEditAlbum</servlet-name>
-		<servlet-class>it.polimi.tiw.servlets.CreateEditAlbum</servlet-class>
+		<servlet-name>EditAlbum</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.EditAlbum</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>CreateEditAlbum</servlet-name>
-		<url-pattern>/CreateEditAlbum</url-pattern>
+		<servlet-name>EditAlbum</servlet-name>
+		<url-pattern>/EditAlbum</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CreateAlbum</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.CreateAlbum</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateAlbum</servlet-name>
+		<url-pattern>/CreateAlbum</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -125,6 +134,14 @@ version="4.0">
 		<servlet-name>ImageController</servlet-name>
 		<url-pattern>/images/*</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>StylesheetController</servlet-name>
+		<servlet-class>it.polimi.tiw.servlets.StylesheetController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StylesheetController</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
 	<!-- Aggiungi gli altri mapping -->
 
 	<!-- We can add filters to pre/post process requests/responses -->
@@ -141,7 +158,8 @@ version="4.0">
 		<url-pattern>/AlbumEdit</url-pattern> 
 		<url-pattern>/Logout</url-pattern>
 		<url-pattern>/CreateComment</url-pattern>  
-		<url-pattern>/CreateEditAlbum</url-pattern> 
+		<url-pattern>/EditAlbum</url-pattern>
+		<url-pattern>/CreateAlbum</url-pattern>
 	</filter-mapping>
 		
 </web-app>

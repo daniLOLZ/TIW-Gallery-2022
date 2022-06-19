@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,7 +184,7 @@ public class AlbumDAO {
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, title);
-			Date currentDate = new Date(Time.now());
+			Date currentDate = new Date(Instant.now().toEpochMilli());
 			preparedStatement.setDate(2, currentDate);
 			preparedStatement.setString(3, creator_username);
 			code = preparedStatement.executeUpdate();
@@ -211,6 +212,83 @@ public class AlbumDAO {
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, image_id);
+			preparedStatement.setInt(2, album_id);
+			code = preparedStatement.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new SQLException(e);
+		}
+		finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return code;
+	}
+	
+	public int removeImageFromAlbum(int image_id, int album_id) throws SQLException {
+		String query = "DELETE FROM containment WHERE image_id = ? AND album_id = ?";
+		int code = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, image_id);
+			preparedStatement.setInt(2, album_id);
+			code = preparedStatement.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new SQLException(e);
+		}
+		finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return code;
+	}
+
+	public int deleteAllImagesInAlbum(Integer album_id) throws SQLException{
+		String query = "DELETE FROM containment WHERE album_id = ?";
+		int code = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, album_id);
+			code = preparedStatement.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new SQLException(e);
+		}
+		finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return code;
+	}
+
+	public int updateTitleOfAlbum(String title, Integer album_id) throws SQLException {
+		String query = "UPDATE album SET title = ? WHERE id = ?";
+		int code = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, title);
 			preparedStatement.setInt(2, album_id);
 			code = preparedStatement.executeUpdate();
 		}

@@ -34,4 +34,8 @@ public class CheckerUtility {
 		return extension;
 	}
 
+	public static boolean checkValidCss(String cssString) {
+		return getImageExtension(cssString).equals("css");
+	}
+
 }

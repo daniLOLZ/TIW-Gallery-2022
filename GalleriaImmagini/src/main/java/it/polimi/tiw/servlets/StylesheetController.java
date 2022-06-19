@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.polimi.tiw.utility.CheckerUtility;
 
-//@WebServlet("/images/*")
-public class ImageController extends HttpServlet{
+//@WebServlet("/css/*")
+public class StylesheetController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,24 +28,22 @@ public class ImageController extends HttpServlet{
 		
 		String readString = request.getPathInfo();
 		
-		if(!CheckerUtility.checkValidImage(readString)) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "the requested image is not valid");
+		if(!CheckerUtility.checkValidCss(readString)) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "the requested style sheet is not valid");
 			return;
 		}
 		
 		ServletContext context = getServletContext();
-
 		InputStream inputStream;
-       
-    	inputStream = context.getResourceAsStream("/resources/images" + readString);
+    	inputStream = context.getResourceAsStream("/resources/css" + readString);
 
     	OutputStream outStream = response.getOutputStream();
 
         if (inputStream == null) {
             response.setContentType("text/plain");
-            outStream.write("Failed to send image".getBytes());
+            outStream.write("Failed to send style sheet".getBytes());
         } else {
-            response.setContentType("image/"+CheckerUtility.getImageExtension(readString));
+            response.setContentType("text/css");
 
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -66,5 +64,6 @@ public class ImageController extends HttpServlet{
 	public void destroy() {	
 	
 	}
+
 
 }

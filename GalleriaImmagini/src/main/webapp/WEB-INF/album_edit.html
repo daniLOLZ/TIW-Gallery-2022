@@ -16,22 +16,22 @@
 
 	<h1>Create or edit an album</h1>
 
-	<form th:action="@{/CreateEditAlbum}" method="POST">
+	<form th:action="@{/EditAlbum}" method="POST">
 
 		<div>
 			<label>Album title:</label> 
-			<input type="text" th:value="${albumTitle}" />
+			<input type="text" th:name="albumTitle" th:value="${albumTitle}" />
 		</div>
 
 		<ul>
 			<li th:each="image : ${imagesMap.keySet()}">
 				<!-- for each element image = {String path, boolean present} in allImages -->
-				<input type="checkbox" th:id="${image.id}" th:checked="${imagesMap.get(image)}"/>
+				<input type="checkbox" name="checkedImages" th:value="${image.id}" th:checked="${imagesMap.get(image)}"/>
 				<img th:src="@{${image.path}}" th:alt="${image.description}" />
 				<!-- th:for="${#ids.prev('image.path')}"     -->
 			</li>
 		</ul>
-
+		<input type="hidden" name="id" th:value="${#httpServletRequest.getParameter('id')}"/>
 		<div>
 			<input type="submit" value="Submit" />
 		</div>

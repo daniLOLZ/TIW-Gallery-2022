@@ -26,21 +26,9 @@ public class LoginCheck extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	Connection connection;
-	private TemplateEngine templateEngine;
 
     @Override
     public void init() throws ServletException {
-    	
-    	ServletContext servletContext = getServletContext();
-		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
-		// a template resolver is an object in charge of resolving templates and containing additional information
-		// related to the template, like the template mode, if it can be cached and for how long. a servletcontext
-		// resolver specifically computes the resource from which to resolve the template based on a ServletContext
-		// object.
-		templateResolver.setTemplateMode(TemplateMode.HTML);
-		this.templateEngine = new TemplateEngine();
-		this.templateEngine.setTemplateResolver(templateResolver);
-		templateResolver.setSuffix(".html");
     	
         final String DB_URL = getServletContext().getInitParameter("dbUrl");
 		final String USER = getServletContext().getInitParameter("dbUser");
