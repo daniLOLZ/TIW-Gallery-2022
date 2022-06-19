@@ -137,7 +137,11 @@ public class GoToAlbumPage extends HttpServlet{
 	    			response.sendRedirect(getServletContext().getContextPath() + "/Home");
 	    			return;
 	    		}
-	    		else album = retrievedAlbumList.get(0);
+	    		// I don't to have a query string without an id, so i redirect to the same page but adding the id
+	    		else {
+	    			response.sendRedirect(getServletContext().getContextPath() + "/Album?id=" + retrievedAlbumList.get(0).getId());
+	    			return;
+	    		}
 	    	}
 		}
 		catch (SQLException e) {
