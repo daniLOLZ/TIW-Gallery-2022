@@ -27,10 +27,10 @@
 	<table border="1">
 		<tbody>
 			<tr>
-				<td th:each="thumbnail : ${thumbnailList}">
+				<td th:each="thumbnail : ${thumbnailList.keySet()}">
 					<a th:href="@{/Album(id = ${#request.getParameter('id')},
 										page = ${#request.getParameter('page')},
-										image = ${thumbnailList.indexOf(thumbnail)}+1)}"> <!-- +1 because the position managed by the servlet is 1 through 5 -->
+										image = ${thumbnailList.get(thumbnail)})} "> <!-- +1 because the position managed by the servlet is 1 through 5 -->
 						<img class="thumbnail" th:src="@{${thumbnail.getPath}}" alt="Album image">
 					</a>
 				</td>
@@ -42,6 +42,18 @@
 		<input type="hidden" name="id" th:value="${#httpServletRequest.getParameter('id')}">
 		<input type="submit" value="Edit album"/>
 	</form>
+	
+	<a th:if="${showNext}" th:href="@{/Album(id = ${#request.getParameter('id')},
+											page = ${#request.getParameter('page')}+1,
+											image = ${#request.getParameter('image')})}">
+		<button>Next page</button>
+	</a>
+	<a th:if="${showPrev}" th:href="@{/Album(id = ${#request.getParameter('id')},
+											page = ${#request.getParameter('page')}-1,
+											image = ${#request.getParameter('image')})}">
+		<button>Previous page</button>
+	</a>
+	
 	<br>
 	
 	<div th:if="${isImageShown}">

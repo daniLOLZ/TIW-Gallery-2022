@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.ldap.SortControl;
 import javax.servlet.ServletContext;
@@ -92,7 +95,9 @@ public class GoToAlbumPage extends HttpServlet{
 		CommentDAO commentDAO = new CommentDAO(connection);
 		List<Album> retrievedAlbumList = null;
 		List<Image> imageList = null;
-		List<Image> imagesToShow = null;
+		Map<Image, Integer> imageMap = null;
+		Map<Image, Integer> imagesToShow = null;
+		List<Image> tempImagesToShow = null;
 		List<Comment> comments = null;
 		Album album = null;
 		Image shownImage = null;
@@ -158,18 +163,34 @@ public class GoToAlbumPage extends HttpServlet{
 			return;
 		}
     	
+    	imageMap = new LinkedHashMap<Image, Integer>();
+    	for(int i = 0; i<imageList.size(); i++) {
+    		imageMap.put(imageList.get(i), i+1);
+    	}
+    	
     	// Compute which images to show
     	// Get only the ones in position [(page-1)*5+1, page*5)
     	if (!CheckerUtility.checkAvailability(readAlbumPage)) {
-    		albumPage = 1;
+    		//We don't want to have an invalide page parameter
+    		response.sendRedirect(getServletContext().getContextPath() + "/Album?id=" + readAlbumId + "&page=1");
+    		return;
     	}
     	else {
     		try {
 				albumPage = Integer.parseInt(readAlbumPage);
 			} catch (NumberFormatException e) {
-				albumPage = 1;
+				//We don't want to have an invalide page parameter
+	    		response.sendRedirect(getServletContext().getContextPath() + "/Album?id=" + readAlbumId + "&page=1");
+	    		return;
 			}
     	}
+    	
+    	if(albumPage <= 0) {
+    		//We don't want to have an invalide page parameter
+    		response.sendRedirect(getServletContext().getContextPath() + "/Album?id=" + readAlbumId + "&page=1");
+    		return;
+    	}
+    	
     	int lowerBound = (albumPage-1)*IMAGES_PER_PAGE + 1;
     	int upperBound = albumPage * IMAGES_PER_PAGE;
     	int availablePages;
@@ -195,8 +216,13 @@ public class GoToAlbumPage extends HttpServlet{
     	//To avoid going out of bounds
     	if(imageList.size() < upperBound) upperBound = imageList.size();
     	
-    	imagesToShow = imageList.subList(lowerBound-1, upperBound);
+    	tempImagesToShow = imageList.subList(lowerBound-1, upperBound);
+    	//A linked hashmap is needed to keep the order
+    	imagesToShow = new LinkedHashMap<Image, Integer>();
     	
+    	for(Image image : tempImagesToShow) {
+    		imagesToShow.put(image, imageMap.get(image));
+    	}
     	
     	
     	//If there are more images to the right or left, set a boolean to true that a
@@ -242,7 +268,7 @@ public class GoToAlbumPage extends HttpServlet{
     	if(album.getCreator_username().equals((String)request.getSession().getAttribute("username"))) {
     		showEditButton = true;
     	}
-    		
+    	
     	context.setVariable("thumbnailList", imagesToShow);
     	context.setVariable("showNext", showNext);
     	context.setVariable("showPrev", showPrev);

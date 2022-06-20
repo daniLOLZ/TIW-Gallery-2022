@@ -54,7 +54,7 @@ public class AlbumDAO {
 				resultAlbum = new Album();
 				resultAlbum.setId(resultSet.getInt("id"));
 				resultAlbum.setTitle(resultSet.getString("title"));
-				resultAlbum.setDate(resultSet.getDate("date"));
+				resultAlbum.setDate(resultSet.getTimestamp("date", Calendar.getInstance()));
 				resultAlbum.setCreator_username(resultSet.getString("creator_username"));
 			}
 		}
@@ -102,7 +102,7 @@ public class AlbumDAO {
 				Album album = new Album();
 				album.setId(resultSet.getInt("id"));
 				album.setTitle(resultSet.getString("title"));
-				album.setDate(resultSet.getDate("date"));
+				album.setDate(resultSet.getTimestamp("date", Calendar.getInstance()));
 				album.setCreator_username(resultSet.getString("creator_username"));
 				albumList.add(album);
 			}
@@ -148,7 +148,7 @@ public class AlbumDAO {
 				Album album = new Album();
 				album.setId(resultSet.getInt("id"));
 				album.setTitle(resultSet.getString("title"));
-				album.setDate(resultSet.getDate("date"));
+				album.setDate(resultSet.getTimestamp("date", Calendar.getInstance()));
 				album.setCreator_username(resultSet.getString("creator_username"));
 				albumList.add(album);
 			}

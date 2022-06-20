@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import it.polimi.tiw.beans.Image;
@@ -39,7 +40,7 @@ public class ImageDAO {
 				resultImage.setId(resultSet.getInt("id"));
 				resultImage.setPath(resultSet.getString("path"));
 				resultImage.setTitle(resultSet.getString("title"));
-				resultImage.setDate(resultSet.getDate("date"));
+				resultImage.setDate(resultSet.getTimestamp("date", Calendar.getInstance()));
 				resultImage.setDescription(resultSet.getString("description"));
 			}
 		}
@@ -87,7 +88,7 @@ public class ImageDAO {
 				image.setId(resultSet.getInt("id"));
 				image.setPath(resultSet.getString("path"));
 				image.setTitle(resultSet.getString("title"));
-				image.setDate(resultSet.getDate("date"));
+				image.setDate(resultSet.getTimestamp("date", Calendar.getInstance()));
 				image.setDescription(resultSet.getString("description"));
 				imageList.add(image);
 			}
@@ -134,7 +135,7 @@ public class ImageDAO {
 				image.setId(resultSet.getInt("id"));
 				image.setPath(resultSet.getString("path"));
 				image.setTitle(resultSet.getString("title"));
-				image.setDate(resultSet.getDate("date"));
+				image.setDate(resultSet.getTimestamp("date", Calendar.getInstance()));
 				image.setDescription(resultSet.getString("description"));
 				imageList.add(image);
 			}

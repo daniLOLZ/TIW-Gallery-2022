@@ -1,6 +1,7 @@
 package it.polimi.tiw.beans;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Image {
@@ -8,7 +9,7 @@ public class Image {
 	private int id;
 	private String path;
 	private String title;
-	private Date date;
+	private Timestamp date;
 	private String description;
 
 	public int getId() {
@@ -29,10 +30,10 @@ public class Image {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public String getDescription() {
