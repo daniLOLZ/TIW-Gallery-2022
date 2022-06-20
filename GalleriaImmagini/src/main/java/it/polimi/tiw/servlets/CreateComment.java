@@ -59,6 +59,7 @@ public class CreateComment extends HttpServlet{
 		String username = (String) request.getSession().getAttribute("username"); // Guaranteed to exist thanks to filters
 		String readImagePosition = request.getParameter("imagePosition");
 		String readAlbumId = request.getParameter("albumId");
+		String readPageNumber = request.getParameter("pageNumber");
 		String commentText = request.getParameter("commentText");
 		String path = getServletContext().getContextPath();
 		ImageDAO imageDAO = new ImageDAO(connection);
@@ -105,7 +106,7 @@ public class CreateComment extends HttpServlet{
 			return;
 		}
 		
-		response.sendRedirect( path + "/Album?id=" + readAlbumId + "&image=" + readImagePosition);
+		response.sendRedirect( path + "/Album?id=" + readAlbumId + "&page=" + readPageNumber + "&image=" + readImagePosition);
     	
     }
 
