@@ -20,15 +20,13 @@
 	<table th:if="${userAlbums.size()}" border="1">
 		<thead>
 			<tr>
-				<td>ID</td>
 				<td>Title</td>
 				<td>Date</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="album : ${userAlbums}">
-				<td> <a th:text="${album.getId()}" th:href="@{/Album(id=${album.getId()})}"></a> </td>
-				<td th:text="${album.getTitle()}">title1</td>
+				<td><a th:text="${album.getTitle()}" th:href="@{/Album(id=${album.getId()})}"></a></td>
 				<td th:text="${album.getDate()}">date1</td>
 			</tr>
 		</tbody>
@@ -43,7 +41,6 @@
 	<table th:if="${othersAlbums.size()}" border="1">
 		<thead>
 			<tr>
-				<td>ID</td>
 				<td>Creator</td>
 				<td>Title</td>
 				<td>Date</td>
@@ -51,9 +48,8 @@
 		</thead>
 		<tbody>
 			<tr th:each="album : ${othersAlbums}">
-				<td> <a th:text="${album.getId()}" th:href="@{/Album(id=${album.getId()})}">id2</a></td>
 				<td th:text="${album.getCreator_username()}">creator2</td>
-				<td th:text="${album.getTitle()}">title2</td>
+				<td><a th:text="${album.getTitle()}" th:href="@{/Album(id=${album.getId()})}"></a></td>
 				<td th:text="${album.getDate()}">date2</td>
 			</tr>
 		</tbody>
