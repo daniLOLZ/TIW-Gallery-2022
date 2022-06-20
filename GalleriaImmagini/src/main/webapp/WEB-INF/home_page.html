@@ -9,9 +9,9 @@
 <!-- attributi per thymeleaf: userAlbums e othersAlbums che sono List<Album> -->
 <body>
 	<div class="logoutButton">
-		<form th:action="@{/Logout}" method="POST">
-			<input type="submit" value="Logout" />
-		</form>
+		<a th:href="@{/Logout}">
+			<button>Logout</button>
+		</a>
 	</div>
 
 	<h1>ImageGallery Albums</h1>

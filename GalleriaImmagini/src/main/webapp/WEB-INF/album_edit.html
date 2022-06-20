@@ -10,14 +10,14 @@
 <body>
 
 	<div class="homeButton">
-		<form th:action="@{/Home}" method="POST">
-			<input type="submit" value="Go to homepage" />
-		</form>
+		<a th:href="@{/Home}">
+			<button>Go to homepage</button>
+		</a>
 	</div>
 	<div class="logoutButton">
-		<form th:action="@{/Logout}" method="POST">
-			<input type="submit" value="Logout" />
-		</form>
+		<a th:href="@{/Logout}">
+			<button>Logout</button>
+		</a>
 	</div>
 
 	<h1>Edit an album</h1>
