@@ -30,9 +30,10 @@
 				<td th:each="thumbnail : ${thumbnailList.keySet()}">
 					<a th:href="@{/Album(id = ${#request.getParameter('id')},
 										page = ${#request.getParameter('page')},
-										image = ${thumbnailList.get(thumbnail)})} "> <!-- +1 because the position managed by the servlet is 1 through 5 -->
+										image = ${thumbnailList.get(thumbnail)})} ">
 						<img class="thumbnail" th:src="@{${thumbnail.getPath}}" alt="Album image">
 					</a>
+					<br><p th:text="${thumbnail.getTitle()}"/>
 				</td>
 			</tr>
 		</tbody>
