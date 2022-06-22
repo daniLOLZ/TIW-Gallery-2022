@@ -65,6 +65,7 @@
 					<td>Title</td>
 					<td>Date</td>
 					<td>Description</td>
+					<td>Uploader</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -75,6 +76,7 @@
 					<td th:text="${shownImage.getTitle()}"/>
 					<td th:text="${shownImage.getDate()}"/>
 					<td th:text="${shownImage.getDescription()}"/>
+					<td th:text="${shownImage.getUploader_username()}"/>
 				</tr>
 			</tbody>
 		</table>
