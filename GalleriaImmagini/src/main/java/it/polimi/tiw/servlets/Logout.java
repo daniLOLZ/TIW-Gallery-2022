@@ -14,9 +14,12 @@ import javax.servlet.http.HttpSession;
 
 public class Logout extends HttpServlet{
    
-	private Connection connection;
 	private static final long serialVersionUID = 1L;
 	
+	@Override
+	public void init() {
+		
+	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Clear the user session and go to the login page
@@ -36,13 +39,7 @@ public class Logout extends HttpServlet{
 	
 	
 	public void destroy() {
-		try {
-			if(connection != null){
-				connection.close();
-			}
-		} catch (SQLException e) {
-			
-		}
+		
 	}
 	
 }
