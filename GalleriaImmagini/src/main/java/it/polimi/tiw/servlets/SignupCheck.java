@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.polimi.tiw.dao.UserDAO;
+import it.polimi.tiw.utility.CheckerUtility;
 import it.polimi.tiw.utility.ConnectionUtility;
 
 //@WebServlet("/SignupCheck")
@@ -49,9 +50,10 @@ public class SignupCheck extends HttpServlet {
 		UserDAO userDAO = new UserDAO(connection);
 		String path = getServletContext().getContextPath();
 		
-		if(username == null || email == null || password == null || repeatPassword == null || 
-		   username.isEmpty()|| email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || 
-		   username.isBlank()|| email.isBlank() || password.isBlank() || repeatPassword.isBlank()){
+		if(!(CheckerUtility.checkAvailability(username) ||
+			 CheckerUtility.checkAvailability(email) ||
+			 CheckerUtility.checkAvailability(password) ||
+			 CheckerUtility.checkAvailability(repeatPassword))){
 			response.sendRedirect(path + "/?errorId=1"); //Send with error status = 1 (null/invalid inputs (sign up))
 			return;
 		}
