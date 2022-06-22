@@ -87,13 +87,13 @@ public class AlbumDAO {
 	public List<Album> getAlbumsOfUser(String username) throws SQLException{
 		String query = "SELECT id, title, date, creator_username "
 				+ 		"FROM album "
-				+ 		"WHERE creator_username = ?"
+				+ 		"WHERE creator_username = ? "
 				+ 		"ORDER BY date DESC";
 		
 		ResultSet resultSet = null; 
 		List<Album> albumList = new ArrayList<Album>();
 		PreparedStatement preparedStatement = null;
-		
+		 
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, username);
