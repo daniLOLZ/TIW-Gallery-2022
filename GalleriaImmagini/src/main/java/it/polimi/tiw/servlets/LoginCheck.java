@@ -20,6 +20,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.tiw.dao.UserDAO;
+import it.polimi.tiw.utility.CheckerUtility;
 import it.polimi.tiw.utility.ConnectionUtility;
 
 //@WebServlet("/LoginCheck")
@@ -51,9 +52,8 @@ public class LoginCheck extends HttpServlet {
         
         //final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
         
-        if(username == null || password == null ||
-           username.isEmpty() || password.isEmpty() || 
-     	   username.isBlank() || password.isBlank() ){
+        if(!(CheckerUtility.checkAvailability(username) ||
+        	 CheckerUtility.checkAvailability(password))){
         
         	response.sendRedirect(path + "/?errorId=5"); //Send with error status = 5 (null/invalid inputs (login))
             return;
