@@ -2,25 +2,17 @@ package it.polimi.tiw.servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.ldap.SortControl;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.UnavailableException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.coyote.http11.filters.IdentityInputFilter;
-import org.apache.tomcat.util.net.TLSClientHelloExtractor;
-import org.eclipse.jdt.internal.compiler.codegen.AnnotationTargetTypeConstants;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -32,7 +24,6 @@ import it.polimi.tiw.beans.Image;
 import it.polimi.tiw.dao.AlbumDAO;
 import it.polimi.tiw.dao.CommentDAO;
 import it.polimi.tiw.dao.ImageDAO;
-import it.polimi.tiw.test.ConnectionTester;
 import it.polimi.tiw.utility.CheckerUtility;
 import it.polimi.tiw.utility.ConnectionUtility;
 
