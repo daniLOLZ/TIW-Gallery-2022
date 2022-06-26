@@ -24,37 +24,41 @@
 	<h1>Album view</h1>
 
 	<h2 th:text="${isImageShown} ? 'Album image' : 'Album'">Album</h2>
-	<table border="1">
-		<tbody>
-			<tr>
-				<td th:each="thumbnail : ${thumbnailList.keySet()}">
-					<a th:href="@{/Album(id = ${#request.getParameter('id')},
-										page = ${#request.getParameter('page')},
-										image = ${thumbnailList.get(thumbnail)})} ">
-						<img class="thumbnail" th:src="@{${thumbnail.getPath}}" alt="Album image">
-					</a>
-					<br><p th:text="${thumbnail.getTitle()}"/>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	
+	<div id="imagesDiv">
+		<a id="prevButton" th:if="${showPrev}" th:href="@{/Album(id = ${#request.getParameter('id')},
+												page = ${#request.getParameter('page')}-1,
+												image = ${#request.getParameter('image')})}">
+			<button>Previous page</button>
+		</a>
+		
+		<table id="imagesTable" border="1">
+			<tbody>
+				<tr>
+					<td th:each="thumbnail : ${thumbnailList.keySet()}">
+						<a th:href="@{/Album(id = ${#request.getParameter('id')},
+											page = ${#request.getParameter('page')},
+											image = ${thumbnailList.get(thumbnail)})} ">
+							<img class="thumbnail" th:src="@{${thumbnail.getPath}}" alt="Album image">
+						</a>
+						<br><p th:text="${thumbnail.getTitle()}"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<a id="nextButton" th:if="${showNext}" th:href="@{/Album(id = ${#request.getParameter('id')},
+												page = ${#request.getParameter('page')}+1,
+												image = ${#request.getParameter('image')})}">
+			<button>Next page</button>
+		</a>
+	</div>
 	<br>
 	<form method="GET" th:action="@{/AlbumEdit}" th:if="${showEditButton}">
 		<input type="hidden" name="id" th:value="${#httpServletRequest.getParameter('id')}">
 		<input type="submit" value="Edit album"/>
 	</form>
-	
-	<a th:if="${showNext}" th:href="@{/Album(id = ${#request.getParameter('id')},
-											page = ${#request.getParameter('page')}+1,
-											image = ${#request.getParameter('image')})}">
-		<button>Next page</button>
-	</a>
-	<a th:if="${showPrev}" th:href="@{/Album(id = ${#request.getParameter('id')},
-											page = ${#request.getParameter('page')}-1,
-											image = ${#request.getParameter('image')})}">
-		<button>Previous page</button>
-	</a>
-	
+		
 	<br>
 	
 	<div th:if="${isImageShown}">

@@ -74,12 +74,20 @@ public class CreateComment extends HttpServlet{
 			response.sendRedirect(getServletContext().getContextPath() + "/Home");
 			return;
 		}
+		
 
 		//Get the image list
 		try {
 			images = imageDAO.getImagesInAlbum(albumId);
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
+		}
+		
+		// Do other input sanification
+		if(imagePosition < 1 || images == null || imagePosition > images.size()) {
+			//This might need to go somewhere else, but for now it's easiest to redirect to Home
+			response.sendRedirect(getServletContext().getContextPath() + "/Home");
 			return;
 		}
 		
