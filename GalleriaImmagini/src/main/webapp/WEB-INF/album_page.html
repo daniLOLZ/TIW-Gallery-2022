@@ -21,7 +21,7 @@
 		</a>
 	</div>
 
-	<h1>Album view</h1>
+	<h1 th:text="'Album view : ' + ${albumTitle}">Album view</h1>
 
 	<h2 th:text="${isImageShown} ? 'Album image' : 'Album'">Album</h2>
 	

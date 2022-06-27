@@ -66,6 +66,7 @@ public class GoToAlbumPage extends HttpServlet{
     	
 		String readAlbumId = null, readAlbumPage = null, readImagePosition = null;
 		int albumId = 0, albumPage = 0, imagePosition = 0;
+		String albumTitle;
 		AlbumDAO albumDAO = new AlbumDAO(connection);
 		ImageDAO imageDAO = new ImageDAO(connection);
 		CommentDAO commentDAO = new CommentDAO(connection);
@@ -130,6 +131,7 @@ public class GoToAlbumPage extends HttpServlet{
 			return;
 		}
     	albumId = album.getId();
+    	albumTitle = album.getTitle();
     	
     	//Get all images of this album
     	try {
@@ -245,6 +247,7 @@ public class GoToAlbumPage extends HttpServlet{
     		showEditButton = true;
     	}
     	
+    	context.setVariable("albumTitle", albumTitle);
     	context.setVariable("thumbnailList", imagesToShow);
     	context.setVariable("showNext", showNext);
     	context.setVariable("showPrev", showPrev);
