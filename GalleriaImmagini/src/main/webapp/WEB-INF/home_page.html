@@ -17,7 +17,7 @@
 	<h1>ImageGallery Albums</h1>
 
 	<h2>Your albums</h2>
-	<table th:if="${userAlbums.size()}" border="1">
+	<table th:if="${userAlbums.size()}">
 		<thead>
 			<tr>
 				<td>Title</td>
@@ -38,7 +38,7 @@
 	</form>
 	<br>
 	<h2>Other users' albums</h2>
-	<table th:if="${othersAlbums.size()}" border="1">
+	<table th:if="${othersAlbums.size()}">
 		<thead>
 			<tr>
 				<td>Creator</td>

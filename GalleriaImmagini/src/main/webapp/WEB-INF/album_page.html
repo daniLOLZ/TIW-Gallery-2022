@@ -32,7 +32,7 @@
 			<button>Previous page</button>
 		</a>
 		
-		<table id="imagesTable" border="1">
+		<table id="imagesTable">
 			<tbody>
 				<tr>
 					<td th:each="thumbnail : ${thumbnailList.keySet()}">
@@ -62,7 +62,7 @@
 	<br>
 	
 	<div th:if="${isImageShown}">
-		<table border="1">
+		<table>
 			<thead>
 				<tr>
 					<td>Image</td>
