@@ -39,7 +39,7 @@
 						<a th:href="@{/Album(id = ${#request.getParameter('id')},
 											page = ${#request.getParameter('page')},
 											image = ${thumbnailList.get(thumbnail)})} ">
-							<img class="thumbnail" th:src="@{${thumbnail.getPath}}" alt="Album image">
+							<img class="thumbnail" th:src="${thumbnail.getPath}" alt="Album image">
 						</a>
 						<br><p th:text="${thumbnail.getTitle()}"/>
 					</td>
@@ -75,7 +75,7 @@
 			<tbody>
 				<tr>
 					<td>
-						<img th:src="@{${shownImage.getPath()}}" alt="Detailed image">
+						<img th:src="${shownImage.getPath()}" alt="Detailed image">
 					</td>
 					<td th:text="${shownImage.getTitle()}"/>
 					<td th:text="${shownImage.getDate()}"/>
