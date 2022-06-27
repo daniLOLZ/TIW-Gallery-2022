@@ -21,7 +21,7 @@
 		</a>
 	</div>
 
-	<h1 th:text="'Album view : ' + ${albumTitle}">Album view</h1>
+	<h1 th:text="'Album view: ' + ${albumTitle}">Album view</h1>
 
 	<h2 th:text="${isImageShown} ? 'Album image' : 'Album'">Album</h2>
 	
@@ -32,7 +32,7 @@
 			<button>Previous page</button>
 		</a>
 		
-		<table id="imagesTable" border="1">
+		<table id="imagesTable">
 			<tbody>
 				<tr>
 					<td th:each="thumbnail : ${thumbnailList.keySet()}">
@@ -62,7 +62,7 @@
 	<br>
 	
 	<div th:if="${isImageShown}">
-		<table border="1">
+		<table>
 			<thead>
 				<tr>
 					<td>Image</td>
@@ -100,16 +100,10 @@
 		</div>
 		
 		<form th:action="@{/CreateComment}" method="POST">
+			<input type="hidden" name="albumId" th:value="${#request.getParameter('id')}">
+			<input type="hidden" name="imagePosition" th:value="${#request.getParameter('image')}">
+			<input type="hidden" name="pageNumber" th:value="${#request.getParameter('page')}">
 			<table>
-				<tr>
-					<td><input type="hidden" name="albumId" th:value="${#request.getParameter('id')}"></td>
-				</tr>
-				<tr>
-					<td><input type="hidden" name="imagePosition" th:value="${#request.getParameter('image')}"></td>
-				</tr>
-				<tr>
-					<td><input type="hidden" name="pageNumber" th:value="${#request.getParameter('page')}"></td>
-				</tr>
 				<tr>
 					<td><textarea id="yourComment" name="commentText" placeholder="Your comment goes here..." required></textarea></td>
 				</tr>
