@@ -61,12 +61,13 @@ public class GoToHomePage extends HttpServlet{
     	//Gets this user's albums (username in the session)
     	AlbumDAO albumDAO = new AlbumDAO(connection);
     	HttpSession session = request.getSession();
+    	String username = (String)session.getAttribute("username");
     	List<Album> userAlbums = null;
     	List<Album> othersAlbums = null;
     	
     	try {
     		//The username is present and not null thanks to the filter 
-			userAlbums = albumDAO.getAlbumsOfUser((String)session.getAttribute("username"));
+			userAlbums = albumDAO.getAlbumsOfUser(username);
 			othersAlbums = albumDAO.getAllAlbums();
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in retrieving albums");
@@ -78,7 +79,7 @@ public class GoToHomePage extends HttpServlet{
     	
     	//They are already in descending order (see DAO implementation)
     	
-    	//Put them in two (ordered?) thymeleaf lists 
+    	//Put them in two thymeleaf lists 
     	context.setVariable("userAlbums", userAlbums);
     	context.setVariable("othersAlbums", othersAlbums);
     	

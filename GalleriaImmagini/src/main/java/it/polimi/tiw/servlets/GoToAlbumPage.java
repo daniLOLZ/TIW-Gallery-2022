@@ -64,7 +64,9 @@ public class GoToAlbumPage extends HttpServlet{
     	//                            no album page -> page 1 (start counting from 1)
     	//							  no image position -> the album page doesn't show the image but only the thumbnails
     	
-		String readAlbumId = null, readAlbumPage = null, readImagePosition = null;
+		String readAlbumId = request.getParameter("id");
+		String readAlbumPage = request.getParameter("page");
+		String readImagePosition = request.getParameter("image");
 		int albumId = 0, albumPage = 0, imagePosition = 0;
 		String albumTitle;
 		AlbumDAO albumDAO = new AlbumDAO(connection);
@@ -84,9 +86,6 @@ public class GoToAlbumPage extends HttpServlet{
     	    
 		boolean isImageShown = false;
 		boolean getFirstUserAlbum = false;
-    	readAlbumId = request.getParameter("id");
-    	readAlbumPage = request.getParameter("page");
-    	readImagePosition = request.getParameter("image");
     	
     	//Get the id from the url
     	//if there is no parameter, default to getting the newest one for the currently logged in user

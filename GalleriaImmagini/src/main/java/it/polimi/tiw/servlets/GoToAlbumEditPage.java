@@ -65,7 +65,7 @@ public class GoToAlbumEditPage extends HttpServlet {
 		//This attribute is always present thanks to the filter
 		String loggedUserUsername = (String) request.getSession().getAttribute("username");
 		
-		String readAlbumId = null;
+		String readAlbumId = request.getParameter("id");
 		int albumId = 0;
 		AlbumDAO albumDAO = new AlbumDAO(connection);
 		ImageDAO imageDAO = new ImageDAO(connection);
@@ -73,8 +73,6 @@ public class GoToAlbumEditPage extends HttpServlet {
 		LinkedHashMap<Image, Boolean> isContainedList = null;
 		List<Image> containedImageList = null;
 		Album album = null;
-		    
-		readAlbumId = request.getParameter("id");
     	
 		if(!CheckerUtility.checkAvailability(readAlbumId)) {
 			response.sendRedirect(getServletContext().getContextPath() + "/Home");

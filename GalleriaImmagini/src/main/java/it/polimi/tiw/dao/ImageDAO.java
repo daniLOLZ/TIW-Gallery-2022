@@ -69,7 +69,7 @@ public class ImageDAO {
 	
 	/**
 	 * Gets them from newest to oldest
-	 * Returns null if the resulting set is empty
+	 * Returns an empty list if the resulting set is empty
 	 */
 	public List<Image> getImagesInAlbum(int albumId) throws SQLException{
 		List<Image> imageList = new ArrayList<Image>();

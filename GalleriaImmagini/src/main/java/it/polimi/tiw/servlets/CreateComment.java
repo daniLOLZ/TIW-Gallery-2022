@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.polimi.tiw.beans.Album;
 import it.polimi.tiw.beans.Image;
 import it.polimi.tiw.dao.AlbumDAO;
 import it.polimi.tiw.dao.CommentDAO;
@@ -48,10 +49,12 @@ public class CreateComment extends HttpServlet{
 		String readAlbumId = request.getParameter("albumId");
 		String readPageNumber = request.getParameter("pageNumber");
 		String commentText = request.getParameter("commentText");
-		String path = getServletContext().getContextPath();
+		String path = getServletContext().getContextPath(); 
+		AlbumDAO albumDAO = new AlbumDAO(connection); // modfiica il diagramam
 		ImageDAO imageDAO = new ImageDAO(connection);
 		CommentDAO commentDAO = new CommentDAO(connection);
 		
+		Album album = null;
 		List<Image> images = new ArrayList<Image>();
 		
 		Integer imagePosition;
@@ -75,6 +78,18 @@ public class CreateComment extends HttpServlet{
 			return;
 		}
 		
+		try {
+			album = albumDAO.getAlbumFromId(albumId);
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
+		}
+		
+		if(album == null) {
+			response.sendRedirect(getServletContext().getContextPath() + "/Home");
+			return;
+		}
+		
 
 		//Get the image list
 		try {
@@ -85,7 +100,7 @@ public class CreateComment extends HttpServlet{
 		}
 		
 		// Do other input sanification
-		if(imagePosition < 1 || images == null || imagePosition > images.size()) {
+		if(imagePosition < 1 || images.isEmpty() || imagePosition > images.size()) {
 			//This might need to go somewhere else, but for now it's easiest to redirect to Home
 			response.sendRedirect(getServletContext().getContextPath() + "/Home");
 			return;
