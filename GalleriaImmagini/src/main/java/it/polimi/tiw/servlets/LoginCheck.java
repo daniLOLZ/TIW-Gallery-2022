@@ -61,13 +61,12 @@ public class LoginCheck extends HttpServlet {
 
         try {
 			if(userDAO.checkCredentials(username, password) == null) {
-				// User is present
+				// User isn't present
 				
 				response.sendRedirect(path + "/?errorId=6"); //Send with error status = 6 (incorrect credentials)
 				return;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database checking user credentials");
 			return;
 		}

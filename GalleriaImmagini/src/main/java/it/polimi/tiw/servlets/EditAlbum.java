@@ -54,7 +54,8 @@ public class EditAlbum extends HttpServlet {
 		Map<Integer, Boolean> selectedUserImages = null;
 		String[] readCheckboxes = null;
 		List<String> listOfReadCheckboxes = null;
-
+		String username = (String)request.getSession().getAttribute("username");
+		
 		if (!CheckerUtility.checkAvailability(readAlbumId) || !CheckerUtility.checkAvailability(albumTitle)) {
 			// todo go back to the previous screen? back to just the album?
 			response.sendRedirect(getServletContext().getContextPath() + "/Home");
@@ -69,6 +70,16 @@ public class EditAlbum extends HttpServlet {
 			return;
 		}
 
+		//Ensure this album belongs to the user making the request
+		try {
+			if(!albumDAO.getAlbumFromId(albumId).getCreator_username().equals(username)) {
+				response.sendRedirect(getServletContext().getContextPath() + "/Home");
+				return;
+			}
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+		}
+		
 		try {
 			userImages = imageDAO.getImagesOfUser((String) request.getSession().getAttribute("username"));
 		} catch (SQLException e) {
