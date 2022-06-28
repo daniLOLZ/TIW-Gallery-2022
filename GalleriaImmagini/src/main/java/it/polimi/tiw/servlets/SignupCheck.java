@@ -88,6 +88,7 @@ public class SignupCheck extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
 		}
 		
 		//Check matching passwords
@@ -102,7 +103,7 @@ public class SignupCheck extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database user creation");
-			
+			return;
 		}
 		
 		// Add session creation here

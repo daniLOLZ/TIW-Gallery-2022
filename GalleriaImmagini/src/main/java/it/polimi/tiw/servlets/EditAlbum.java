@@ -146,6 +146,7 @@ public class EditAlbum extends HttpServlet {
 			connection.commit();
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
 		} finally {
 			try {
 				connection.setAutoCommit(true);

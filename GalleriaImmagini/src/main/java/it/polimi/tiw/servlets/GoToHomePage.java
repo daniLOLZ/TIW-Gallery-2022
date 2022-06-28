@@ -69,8 +69,8 @@ public class GoToHomePage extends HttpServlet{
 			userAlbums = albumDAO.getAlbumsOfUser((String)session.getAttribute("username"));
 			othersAlbums = albumDAO.getAllAlbums();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in retrieving albums");
+			return;
 		}
     	
     	//Gets other users' albums, excluding this user's
