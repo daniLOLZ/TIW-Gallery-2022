@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.polimi.tiw.beans.Album;
 import it.polimi.tiw.beans.Image;
 import it.polimi.tiw.dao.AlbumDAO;
 import it.polimi.tiw.dao.ImageDAO;
@@ -50,6 +51,7 @@ public class EditAlbum extends HttpServlet {
 		Integer albumId = -1;
 		ImageDAO imageDAO = new ImageDAO(connection);
 		AlbumDAO albumDAO = new AlbumDAO(connection);
+		Album album = null;
 		List<Image> userImages = null;
 		Map<Integer, Boolean> selectedUserImages = null;
 		String[] readCheckboxes = null;
@@ -72,18 +74,28 @@ public class EditAlbum extends HttpServlet {
 
 		//Ensure this album belongs to the user making the request
 		try {
-			if(!albumDAO.getAlbumFromId(albumId).getCreator_username().equals(username)) {
-				response.sendRedirect(getServletContext().getContextPath() + "/Home");
-				return;
-			}
+			album = albumDAO.getAlbumFromId(albumId); 
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
 		}
+		
+		if(album == null) {
+			response.sendRedirect(getServletContext().getContextPath() + "/Home");
+			return;
+		}
+		
+		if(!album.getCreator_username().equals(username)) {
+			response.sendRedirect(getServletContext().getContextPath() + "/Home");
+			return;
+		}
+		
 		
 		try {
 			userImages = imageDAO.getImagesOfUser((String) request.getSession().getAttribute("username"));
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
 		}
 
 		selectedUserImages = new LinkedHashMap<Integer, Boolean>();
@@ -108,6 +120,7 @@ public class EditAlbum extends HttpServlet {
 			connection.setAutoCommit(false);
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database connection");
+			return;
 		}
 
 		try { 
