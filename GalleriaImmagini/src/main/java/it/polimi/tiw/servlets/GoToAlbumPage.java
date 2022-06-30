@@ -220,7 +220,7 @@ public class GoToAlbumPage extends HttpServlet{
     	
     	// ...and if it's a valid image in this album
     	if(isImageShown) {
-    		if(imagePosition > imageList.size()) {
+    		if(imagePosition <= 0 || imagePosition > imageList.size()) {
     			isImageShown = false;
     		}
     	}
