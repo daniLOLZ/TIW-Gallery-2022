@@ -59,7 +59,6 @@ public class EditAlbum extends HttpServlet {
 		String username = (String)request.getSession().getAttribute("username");
 		
 		if (!CheckerUtility.checkAvailability(readAlbumId) || !CheckerUtility.checkAvailability(albumTitle)) {
-			// todo go back to the previous screen? back to just the album?
 			response.sendRedirect(getServletContext().getContextPath() + "/Home");
 			return;
 		}

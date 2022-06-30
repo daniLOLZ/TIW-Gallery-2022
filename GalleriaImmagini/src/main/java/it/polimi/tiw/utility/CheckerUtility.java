@@ -37,5 +37,34 @@ public class CheckerUtility {
 	public static boolean checkValidCss(String cssString) {
 		return getImageExtension(cssString).equals("css");
 	}
+	
+	/**
+	 * Tests to see if the value provided represents a positive integer
+	 * @return true if the value is a positive integer 
+	 */
+	public static boolean isPositiveInt(String value) {
+		int temp;
+		try {
+			temp = Integer.parseInt(value);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return (temp > 0);
+	}
+	
+	/**
+	 * Tests to see if the value provided represents an integer
+	 * @return true if the value is an integer 
+	 */
+	public static boolean isInt(String value) {
+		int temp;
+		try {
+			temp = Integer.parseInt(value);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 
 }
