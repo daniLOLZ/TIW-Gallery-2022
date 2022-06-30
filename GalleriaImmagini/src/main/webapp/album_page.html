@@ -35,7 +35,7 @@
 		<table id="imagesTable">
 			<tbody>
 				<tr>
-					<td th:each="thumbnail : ${thumbnailList.keySet()}">
+					<td th:each="thumbnail : ${thumbnailList.keySet()}" class="thumbnailCell">
 						<a th:href="@{/Album(id = ${#request.getParameter('id')},
 											page = ${#request.getParameter('page')},
 											image = ${thumbnailList.get(thumbnail)})} ">

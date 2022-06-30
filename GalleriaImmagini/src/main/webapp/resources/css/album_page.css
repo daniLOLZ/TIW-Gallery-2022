@@ -83,6 +83,10 @@ table thead {
   	margin-right: auto;
 }
 
+.thumbnailCell {
+	text-align: center;
+}
+
 .commentUser {
 	font-size: 16px;
 	font-weight: bold;
@@ -96,7 +100,6 @@ table thead {
 	width: 500px;
 	height: 100px;
 }
-
 
 #imagesDiv {
 	display: flex; 
