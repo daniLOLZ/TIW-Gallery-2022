@@ -29,7 +29,7 @@
 		<a id="prevButton" th:if="${showPrev}" th:href="@{/Album(id = ${#request.getParameter('id')},
 												page = ${#request.getParameter('page')}-1,
 												image = ${#request.getParameter('image')})}">
-			<button>Previous page</button>
+			<button>Previous</button>
 		</a>
 		
 		<table id="imagesTable">
@@ -50,7 +50,7 @@
 		<a id="nextButton" th:if="${showNext}" th:href="@{/Album(id = ${#request.getParameter('id')},
 												page = ${#request.getParameter('page')}+1,
 												image = ${#request.getParameter('image')})}">
-			<button>Next page</button>
+			<button>Next</button>
 		</a>
 	</div>
 	<br>

@@ -35,6 +35,14 @@ input[type=submit]:focus {
   background-color: #999944;
 }
 
+#prevButton {
+	margin-right: 2px;
+}
+
+#nextButton {
+	margin-left: 2px;
+}
+
 .homeButton {
 	position: absolute;
 	top: 10px;
@@ -94,5 +102,5 @@ table thead {
 	display: flex; 
 	flex-direction: row; 
 	justify-content: center; 
-	align-items: center
+	align-items: center;
 }
