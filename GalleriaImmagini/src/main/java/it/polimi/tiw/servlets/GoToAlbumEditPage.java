@@ -54,7 +54,7 @@ public class GoToAlbumEditPage extends HttpServlet {
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String htmlPath = "/WEB-INF/album_edit.html";
+		String htmlPath = "/album_edit.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
     	

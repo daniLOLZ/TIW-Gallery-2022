@@ -32,7 +32,7 @@
 		<ul>
 			<li th:each="image : ${imagesMap.keySet()}">
 				<input type="checkbox" name="checkedImages" th:value="${image.id}" th:checked="${imagesMap.get(image)}"/>
-				<img th:src="${image.path}" width=500px th:alt="${image.description}" />
+				<img th:src="${image.path}" width=400px th:alt="${image.description}" />
 			</li>
 		</ul>
 		<input type="hidden" name="id" th:value="${#request.getParameter('id')}"/>

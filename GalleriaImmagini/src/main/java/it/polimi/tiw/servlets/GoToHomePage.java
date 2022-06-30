@@ -52,7 +52,7 @@ public class GoToHomePage extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	String htmlPath = "/WEB-INF/home_page.html";
+    	String htmlPath = "/home_page.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
     	

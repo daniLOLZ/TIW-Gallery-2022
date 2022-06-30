@@ -51,7 +51,7 @@ public class GoToLoginPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String htmlPath = "/WEB-INF/login_page.html";
+    	String htmlPath = "/login_page.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		
